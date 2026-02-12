@@ -234,7 +234,7 @@ To update the plugin:
 
 ## Support
 
-- **Issues**: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues
+- **Issues**: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues
 - **Documentation**: See [README.md](headlamp-sealed-secrets/README.md)
 - **Headlamp Docs**: https://headlamp.dev/docs/latest/
 - **Sealed Secrets**: https://github.com/bitnami-labs/sealed-secrets

@@ -8,7 +8,7 @@
 
 > **useSealedSecretEncryption**(): `object`
 
-Defined in: [src/hooks/useSealedSecretEncryption.ts:73](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L73)
+Defined in: [src/hooks/useSealedSecretEncryption.ts:73](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L73)
 
 Custom hook for SealedSecret encryption
 

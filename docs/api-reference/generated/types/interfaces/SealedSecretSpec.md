@@ -6,7 +6,7 @@
 
 # Interface: SealedSecretSpec
 
-Defined in: [src/types.ts:183](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L183)
+Defined in: [src/types.ts:183](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L183)
 
 SealedSecret CRD spec
 
@@ -16,7 +16,7 @@ SealedSecret CRD spec
 
 > **encryptedData**: `Record`\<`string`, `string`\>
 
-Defined in: [src/types.ts:185](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L185)
+Defined in: [src/types.ts:185](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L185)
 
 Map of key names to encrypted (base64-encoded) values
 
@@ -26,7 +26,7 @@ Map of key names to encrypted (base64-encoded) values
 
 > `optional` **template**: `object`
 
-Defined in: [src/types.ts:187](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L187)
+Defined in: [src/types.ts:187](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L187)
 
 Metadata template for the resulting Secret
 

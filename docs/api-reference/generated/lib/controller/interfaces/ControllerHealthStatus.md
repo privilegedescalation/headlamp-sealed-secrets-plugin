@@ -6,7 +6,7 @@
 
 # Interface: ControllerHealthStatus
 
-Defined in: [src/lib/controller.ts:14](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L14)
+Defined in: [src/lib/controller.ts:14](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L14)
 
 Controller health status information
 
@@ -16,7 +16,7 @@ Controller health status information
 
 > **healthy**: `boolean`
 
-Defined in: [src/lib/controller.ts:16](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L16)
+Defined in: [src/lib/controller.ts:16](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L16)
 
 Whether the controller is healthy and responding
 
@@ -26,7 +26,7 @@ Whether the controller is healthy and responding
 
 > **reachable**: `boolean`
 
-Defined in: [src/lib/controller.ts:18](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L18)
+Defined in: [src/lib/controller.ts:18](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L18)
 
 Whether the controller is reachable
 
@@ -36,7 +36,7 @@ Whether the controller is reachable
 
 > `optional` **version**: `string`
 
-Defined in: [src/lib/controller.ts:20](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L20)
+Defined in: [src/lib/controller.ts:20](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L20)
 
 Controller version if available
 
@@ -46,7 +46,7 @@ Controller version if available
 
 > `optional` **latencyMs**: `number`
 
-Defined in: [src/lib/controller.ts:22](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L22)
+Defined in: [src/lib/controller.ts:22](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L22)
 
 Response latency in milliseconds
 
@@ -56,6 +56,6 @@ Response latency in milliseconds
 
 > `optional` **error**: `string`
 
-Defined in: [src/lib/controller.ts:24](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L24)
+Defined in: [src/lib/controller.ts:24](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L24)
 
 Error message if not healthy

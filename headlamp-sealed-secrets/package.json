@@ -9,13 +9,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cpfarhood/headlamp-sealed-secrets-plugin.git",
+    "url": "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git",
     "directory": "headlamp-sealed-secrets"
   },
   "bugs": {
-    "url": "https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues"
+    "url": "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues"
   },
-  "homepage": "https://github.com/cpfarhood/headlamp-sealed-secrets-plugin#readme",
+  "homepage": "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin#readme",
   "author": "cpfarhood",
   "license": "Apache-2.0",
   "scripts": {

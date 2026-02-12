@@ -6,7 +6,7 @@
 
 # Interface: SealedSecretInterface
 
-Defined in: [src/types.ts:219](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L219)
+Defined in: [src/types.ts:219](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L219)
 
 Complete SealedSecret CRD interface
 
@@ -24,7 +24,7 @@ Complete SealedSecret CRD interface
 
 > **spec**: [`SealedSecretSpec`](SealedSecretSpec.md)
 
-Defined in: [src/types.ts:220](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L220)
+Defined in: [src/types.ts:220](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L220)
 
 #### Overrides
 
@@ -36,7 +36,7 @@ Defined in: [src/types.ts:220](https://github.com/cpfarhood/headlamp-sealed-secr
 
 > `optional` **status**: [`SealedSecretStatus`](SealedSecretStatus.md)
 
-Defined in: [src/types.ts:221](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L221)
+Defined in: [src/types.ts:221](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L221)
 
 #### Overrides
 

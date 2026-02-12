@@ -6,7 +6,7 @@
 
 # Interface: ValidationResult
 
-Defined in: [src/lib/validators.ts:131](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L131)
+Defined in: [src/lib/validators.ts:131](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L131)
 
 Validation result with error message
 
@@ -16,7 +16,7 @@ Validation result with error message
 
 > **valid**: `boolean`
 
-Defined in: [src/lib/validators.ts:132](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L132)
+Defined in: [src/lib/validators.ts:132](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L132)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [src/lib/validators.ts:132](https://github.com/cpfarhood/headlamp-se
 
 > `optional` **error**: `string`
 
-Defined in: [src/lib/validators.ts:133](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L133)
+Defined in: [src/lib/validators.ts:133](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L133)

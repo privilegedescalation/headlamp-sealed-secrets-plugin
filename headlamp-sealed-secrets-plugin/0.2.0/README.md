@@ -1,8 +1,8 @@
 # Headlamp Sealed Secrets Plugin
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![GitHub release](https://img.shields.io/github/v/release/cpfarhood/headlamp-sealed-secrets-plugin)](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases)
-[![GitHub issues](https://img.shields.io/github/issues/cpfarhood/headlamp-sealed-secrets-plugin)](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues)
+[![GitHub release](https://img.shields.io/github/v/release/cpfarhood/headlamp-sealed-secrets-plugin)](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases)
+[![GitHub issues](https://img.shields.io/github/issues/cpfarhood/headlamp-sealed-secrets-plugin)](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)
 [![Test Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](headlamp-sealed-secrets/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
 
@@ -40,7 +40,7 @@ A comprehensive [Headlamp](https://headlamp.dev) plugin for managing [Bitnami Se
 
 ```bash
 # 1. Download and extract plugin
-curl -LO https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases/download/v0.2.0/headlamp-sealed-secrets-0.2.0.tar.gz
+curl -LO https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v0.2.0/headlamp-sealed-secrets-0.2.0.tar.gz
 tar -xzf headlamp-sealed-secrets-0.2.0.tar.gz -C ~/Library/Application\ Support/Headlamp/plugins/
 
 # 2. Restart Headlamp
@@ -276,7 +276,7 @@ npm run tsc
 | **Documentation** | Tutorials, guides, examples | ✅ Yes |
 | **Testing** | More test coverage, edge cases | ✅ Yes |
 | **Features** | Bulk operations, secret templates | ⚠️ Discuss first |
-| **Bug Fixes** | See [open issues](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues) | ✅ Yes |
+| **Bug Fixes** | See [open issues](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues) | ✅ Yes |
 | **Accessibility** | ARIA improvements, keyboard nav | ✅ Yes |
 | **Translations** | i18n support (future) | 📅 Planned |
 
@@ -307,14 +307,14 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
    - [API Reference](docs/api-reference/generated/) - TypeScript API docs
 
 2. **🔍 Search Existing Issues**
-   - [Open Issues](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues)
-   - [Closed Issues](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues?q=is%3Aissue+is%3Aclosed)
+   - [Open Issues](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)
+   - [Closed Issues](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues?q=is%3Aissue+is%3Aclosed)
 
 3. **💬 Ask the Community**
-   - [GitHub Discussions](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/discussions)
+   - [GitHub Discussions](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/discussions)
 
 4. **🐛 Report a Bug**
-   - [Create New Issue](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues/new)
+   - [Create New Issue](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues/new)
    - Include: Plugin version, Headlamp version, error messages, steps to reproduce
 
 ### Common Issues
@@ -340,10 +340,10 @@ Built with:
 ## 🔗 Links
 
 ### Project Resources
-- 📦 **[Releases](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases)** - Download plugin
+- 📦 **[Releases](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases)** - Download plugin
 - 📚 **[Documentation](docs/README.md)** - Complete docs
-- 🐛 **[Issues](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues)** - Bug reports
-- 💬 **[Discussions](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/discussions)** - Q&A
+- 🐛 **[Issues](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)** - Bug reports
+- 💬 **[Discussions](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/discussions)** - Q&A
 - 📝 **[Changelog](CHANGELOG.md)** - Version history
 
 ### External Resources

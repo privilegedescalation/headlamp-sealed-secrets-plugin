@@ -8,7 +8,7 @@
 
 > **useHasWriteAccess**(`namespace?`): `object`
 
-Defined in: [src/hooks/usePermissions.ts:104](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/usePermissions.ts#L104)
+Defined in: [src/hooks/usePermissions.ts:104](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/usePermissions.ts#L104)
 
 Hook to check if user has any write permissions
 

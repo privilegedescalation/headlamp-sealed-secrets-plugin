@@ -8,7 +8,7 @@
 # On GitHub, create: cpfarhood/headlamp-sealed-secrets-plugin
 # Then run:
 
-git remote add origin https://github.com/cpfarhood/headlamp-sealed-secrets-plugin.git
+git remote add origin https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
 git push -u origin main
 ```
 
@@ -17,7 +17,7 @@ git push -u origin main
 1. Go to https://www.npmjs.com/settings/cpfarhood/tokens
 2. Create new **Automation** token
 3. Copy the token
-4. Go to https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/settings/secrets/actions
+4. Go to https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/settings/secrets/actions
 5. Create secret: `NPM_TOKEN` = your token
 
 ### 3. Tag and Release
@@ -36,7 +36,7 @@ The GitHub Action will automatically:
 - ✅ Publish to NPM
 - ✅ Create GitHub Release
 
-Check progress at: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/actions
+Check progress at: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/actions
 
 ### 5. Verify Artifact Hub Sync
 
@@ -71,7 +71,7 @@ npm view headlamp-sealed-secrets
 ```
 
 ### GitHub Release (within minutes)
-https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases
+https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases
 
 ### Artifact Hub (within hours)
 https://artifacthub.io/packages/headlamp/headlamp-sealed-secrets
@@ -143,7 +143,7 @@ For detailed instructions, see:
 After setting up GitHub repo and NPM token:
 
 ```bash
-git remote add origin https://github.com/cpfarhood/headlamp-sealed-secrets-plugin.git
+git remote add origin https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
 git push -u origin main
 git tag -a v0.1.0 -m "Release version 0.1.0" && git push origin v0.1.0
 ```

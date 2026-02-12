@@ -73,5 +73,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dependencies: node-forge for cryptography
 - Compatible with Headlamp v0.13.0+
 
-[Unreleased]: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases/tag/v0.1.0
+[Unreleased]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.1.0

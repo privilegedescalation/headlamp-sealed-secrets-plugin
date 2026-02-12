@@ -93,9 +93,9 @@ Production deployment guides:
 
 ### External Resources
 
-- **GitHub**: [cpfarhood/headlamp-sealed-secrets-plugin](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin)
-- **Issues**: [Report bugs](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues)
-- **Discussions**: [Ask questions](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/discussions)
+- **GitHub**: [cpfarhood/headlamp-sealed-secrets-plugin](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin)
+- **Issues**: [Report bugs](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)
+- **Discussions**: [Ask questions](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/discussions)
 - **Headlamp**: [headlamp.dev](https://headlamp.dev)
 - **Sealed Secrets**: [bitnami-labs/sealed-secrets](https://github.com/bitnami-labs/sealed-secrets)
 

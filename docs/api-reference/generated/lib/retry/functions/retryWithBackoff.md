@@ -8,7 +8,7 @@
 
 > **retryWithBackoff**\<`T`, `E`\>(`operation`, `options?`): [`AsyncResult`](../../../types/type-aliases/AsyncResult.md)\<`T`, `string`\>
 
-Defined in: [src/lib/retry.ts:86](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L86)
+Defined in: [src/lib/retry.ts:86](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L86)
 
 Retry an async operation with exponential backoff
 

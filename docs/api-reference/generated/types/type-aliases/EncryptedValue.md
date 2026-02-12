@@ -8,7 +8,7 @@
 
 > **EncryptedValue** = `string` & `object`
 
-Defined in: [src/types.ts:85](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L85)
+Defined in: [src/types.ts:85](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L85)
 
 Create a branded encrypted value
 This is typically used by encryption functions

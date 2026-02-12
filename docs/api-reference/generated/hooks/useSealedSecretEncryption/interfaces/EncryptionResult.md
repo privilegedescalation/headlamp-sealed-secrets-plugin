@@ -6,7 +6,7 @@
 
 # Interface: EncryptionResult
 
-Defined in: [src/hooks/useSealedSecretEncryption.ts:44](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L44)
+Defined in: [src/hooks/useSealedSecretEncryption.ts:44](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L44)
 
 Result of successful encryption
 
@@ -16,7 +16,7 @@ Result of successful encryption
 
 > **sealedSecretData**: `any`
 
-Defined in: [src/hooks/useSealedSecretEncryption.ts:46](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L46)
+Defined in: [src/hooks/useSealedSecretEncryption.ts:46](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L46)
 
 The complete SealedSecret object ready to apply
 
@@ -26,6 +26,6 @@ The complete SealedSecret object ready to apply
 
 > `optional` **certificateInfo**: [`CertificateInfo`](../../../types/interfaces/CertificateInfo.md)
 
-Defined in: [src/hooks/useSealedSecretEncryption.ts:48](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L48)
+Defined in: [src/hooks/useSealedSecretEncryption.ts:48](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/hooks/useSealedSecretEncryption.ts#L48)
 
 Information about the certificate used

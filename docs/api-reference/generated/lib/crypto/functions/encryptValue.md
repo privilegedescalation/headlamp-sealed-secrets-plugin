@@ -8,7 +8,7 @@
 
 > **encryptValue**(`publicKey`, `value`, `namespace`, `name`, `key`, `scope`): [`Result`](../../../types/type-aliases/Result.md)\<[`Base64String`](../../../types/type-aliases/Base64String.md), `string`\>
 
-Defined in: [src/lib/crypto.ts:55](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/crypto.ts#L55)
+Defined in: [src/lib/crypto.ts:55](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/crypto.ts#L55)
 
 Encrypt a secret value using the kubeseal format
 

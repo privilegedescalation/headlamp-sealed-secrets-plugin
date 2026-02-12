@@ -8,7 +8,7 @@
 
 > **isNetworkError**(`error`): `boolean`
 
-Defined in: [src/lib/retry.ts:147](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L147)
+Defined in: [src/lib/retry.ts:147](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L147)
 
 Predicate to check if error is a network error (retryable)
 

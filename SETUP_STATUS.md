@@ -166,8 +166,8 @@ Access at: http://localhost:8080
 
 ## 🔗 Links
 
-- **Repository**: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
-- **Issues**: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues
+- **Repository**: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin
+- **Issues**: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues
 - **NPM**: (To be published)
 - **Artifact Hub**: (To be published)
 

@@ -6,7 +6,7 @@
 
 # Interface: ResourcePermissions
 
-Defined in: [src/lib/rbac.ts:13](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L13)
+Defined in: [src/lib/rbac.ts:13](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L13)
 
 Resource permissions for a specific resource type
 
@@ -16,7 +16,7 @@ Resource permissions for a specific resource type
 
 > **canCreate**: `boolean`
 
-Defined in: [src/lib/rbac.ts:15](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L15)
+Defined in: [src/lib/rbac.ts:15](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L15)
 
 Can create new resources
 
@@ -26,7 +26,7 @@ Can create new resources
 
 > **canRead**: `boolean`
 
-Defined in: [src/lib/rbac.ts:17](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L17)
+Defined in: [src/lib/rbac.ts:17](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L17)
 
 Can read/get individual resources
 
@@ -36,7 +36,7 @@ Can read/get individual resources
 
 > **canUpdate**: `boolean`
 
-Defined in: [src/lib/rbac.ts:19](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L19)
+Defined in: [src/lib/rbac.ts:19](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L19)
 
 Can update/patch existing resources
 
@@ -46,7 +46,7 @@ Can update/patch existing resources
 
 > **canDelete**: `boolean`
 
-Defined in: [src/lib/rbac.ts:21](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L21)
+Defined in: [src/lib/rbac.ts:21](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L21)
 
 Can delete resources
 
@@ -56,6 +56,6 @@ Can delete resources
 
 > **canList**: `boolean`
 
-Defined in: [src/lib/rbac.ts:23](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L23)
+Defined in: [src/lib/rbac.ts:23](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L23)
 
 Can list resources

@@ -8,7 +8,7 @@
 
 > **validateSecretName**(`name`): [`ValidationResult`](../interfaces/ValidationResult.md)
 
-Defined in: [src/lib/validators.ts:142](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L142)
+Defined in: [src/lib/validators.ts:142](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L142)
 
 Validate secret name with detailed error message
 

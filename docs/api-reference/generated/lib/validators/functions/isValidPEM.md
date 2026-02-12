@@ -8,7 +8,7 @@
 
 > **isValidPEM**(`value`): `boolean`
 
-Defined in: [src/lib/validators.ts:96](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L96)
+Defined in: [src/lib/validators.ts:96](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L96)
 
 Validate PEM certificate format
 

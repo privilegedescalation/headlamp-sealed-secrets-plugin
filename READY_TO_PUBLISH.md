@@ -28,13 +28,13 @@ All code is complete, tested, and committed to the `main` branch.
 ```bash
 # On GitHub: Create repository "headlamp-sealed-secrets-plugin" under cpfarhood
 # Then run:
-git remote add origin https://github.com/cpfarhood/headlamp-sealed-secrets-plugin.git
+git remote add origin https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
 git push -u origin main
 ```
 
 ### 2. Configure NPM Token
 - Create NPM automation token: https://www.npmjs.com/settings/cpfarhood/tokens
-- Add to GitHub secrets: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/settings/secrets/actions
+- Add to GitHub secrets: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/settings/secrets/actions
 - Secret name: `NPM_TOKEN`
 
 ### 3. Create Release Tag
@@ -82,8 +82,8 @@ npm install -g headlamp-sealed-secrets
 ```
 
 ### GitHub (immediate)
-- Check Actions: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/actions
-- View Release: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases
+- Check Actions: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/actions
+- View Release: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases
 
 ### Artifact Hub (up to 24 hours)
 - Control Panel: https://artifacthub.io/control-panel/repositories
@@ -193,7 +193,7 @@ npm version major  # 0.1.0 → 1.0.0
 ## 🤝 Support
 
 If something goes wrong:
-- GitHub Issues: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues
+- GitHub Issues: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues
 - NPM Docs: https://docs.npmjs.com/
 - Artifact Hub Docs: https://artifacthub.io/docs
 - Headlamp Docs: https://headlamp.dev/docs/latest/development/plugins/

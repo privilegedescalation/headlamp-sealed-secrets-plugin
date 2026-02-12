@@ -8,7 +8,7 @@
 
 > **fetchPublicCertificate**(`config`): [`AsyncResult`](../../../types/type-aliases/AsyncResult.md)\<[`PEMCertificate`](../../../types/type-aliases/PEMCertificate.md), `string`\>
 
-Defined in: [src/lib/controller.ts:70](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L70)
+Defined in: [src/lib/controller.ts:70](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/controller.ts#L70)
 
 Fetch the controller's public certificate with retry logic
 

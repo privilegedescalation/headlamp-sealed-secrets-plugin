@@ -121,7 +121,7 @@ git add .
 git commit -m "Initial commit: Headlamp Sealed Secrets plugin"
 
 # Create repository on GitHub first, then:
-git remote add origin https://github.com/cpfarhood/headlamp-sealed-secrets-plugin.git
+git remote add origin https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
 git branch -M main
 git push -u origin main
 ```
@@ -301,5 +301,5 @@ If you encounter issues:
 
 ---
 
-**Repository:** https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
+**Repository:** https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin
 **Artifact Hub ID:** 5574d37c-c4ae-45ab-a378-ef24aaba5b4c

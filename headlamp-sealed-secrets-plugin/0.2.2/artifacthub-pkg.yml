@@ -6,7 +6,7 @@ displayName: Sealed Secrets Plugin for Headlamp
 createdAt: "2026-02-12T00:00:00Z"
 description: A comprehensive Headlamp plugin for managing Bitnami Sealed Secrets with client-side encryption and RBAC-aware UI
 license: Apache-2.0
-homeURL: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
+homeURL: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin
 appVersion: 0.2.2
 containersImages:
   - name: sealed-secrets-controller
@@ -19,13 +19,13 @@ keywords:
   - encryption
   - security
 annotations:
-  headlamp/plugin/archive-url: "https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/releases/download/v0.2.2/headlamp-sealed-secrets-0.2.2.tar.gz"
+  headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v0.2.2/headlamp-sealed-secrets-0.2.2.tar.gz"
   headlamp/plugin/archive-checksum: "SHA256:3dd94e4da82a729c09eb73dcb548f89da00425169f21ff38bfb202caa442c95a"
   headlamp/plugin/version-compat: ">=0.13.0"
   headlamp/plugin/distro-compat: "desktop,in-cluster,web,docker-desktop"
 links:
   - name: Source Code
-    url: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
+    url: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin
   - name: Sealed Secrets
     url: https://github.com/bitnami-labs/sealed-secrets
   - name: Headlamp
@@ -50,7 +50,7 @@ install: |
 
   #### Option 2: Build from Source
   ```bash
-  git clone https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
+  git clone https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin
   cd headlamp-sealed-secrets-plugin/headlamp-sealed-secrets
   npm install
   npm run build
@@ -69,7 +69,7 @@ install: |
   - Manage sealing keys
   - Configure controller settings
 
-  For detailed usage instructions, see the [README](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/main/headlamp-sealed-secrets/README.md).
+  For detailed usage instructions, see the [README](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/main/headlamp-sealed-secrets/README.md).
 maintainers:
   - name: cpfarhood
     email: cpfarhood@users.noreply.github.com

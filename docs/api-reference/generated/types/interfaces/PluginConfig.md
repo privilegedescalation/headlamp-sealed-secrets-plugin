@@ -6,7 +6,7 @@
 
 # Interface: PluginConfig
 
-Defined in: [src/types.ts:227](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L227)
+Defined in: [src/types.ts:227](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L227)
 
 Plugin configuration stored in localStorage
 
@@ -16,7 +16,7 @@ Plugin configuration stored in localStorage
 
 > **controllerName**: `string`
 
-Defined in: [src/types.ts:229](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L229)
+Defined in: [src/types.ts:229](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L229)
 
 Controller deployment name
 
@@ -26,7 +26,7 @@ Controller deployment name
 
 > **controllerNamespace**: `string`
 
-Defined in: [src/types.ts:231](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L231)
+Defined in: [src/types.ts:231](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L231)
 
 Controller namespace
 
@@ -36,6 +36,6 @@ Controller namespace
 
 > **controllerPort**: `number`
 
-Defined in: [src/types.ts:233](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L233)
+Defined in: [src/types.ts:233](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L233)
 
 Controller service port

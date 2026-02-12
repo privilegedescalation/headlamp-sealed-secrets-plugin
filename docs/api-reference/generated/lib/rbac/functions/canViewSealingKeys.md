@@ -8,7 +8,7 @@
 
 > **canViewSealingKeys**(`controllerNamespace`): `Promise`\<`boolean`\>
 
-Defined in: [src/lib/rbac.ts:79](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L79)
+Defined in: [src/lib/rbac.ts:79](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/rbac.ts#L79)
 
 Check if user can view sealing keys (requires get permission on Secrets in controller namespace)
 

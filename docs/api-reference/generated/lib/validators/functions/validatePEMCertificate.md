@@ -8,7 +8,7 @@
 
 > **validatePEMCertificate**(`pem`): [`ValidationResult`](../interfaces/ValidationResult.md)
 
-Defined in: [src/lib/validators.ts:212](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L212)
+Defined in: [src/lib/validators.ts:212](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/validators.ts#L212)
 
 Validate PEM certificate with detailed error message
 

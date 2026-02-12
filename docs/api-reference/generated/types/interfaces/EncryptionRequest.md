@@ -6,7 +6,7 @@
 
 # Interface: EncryptionRequest
 
-Defined in: [src/types.ts:256](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L256)
+Defined in: [src/types.ts:256](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L256)
 
 Encryption request parameters
 
@@ -16,7 +16,7 @@ Encryption request parameters
 
 > **name**: `string`
 
-Defined in: [src/types.ts:257](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L257)
+Defined in: [src/types.ts:257](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L257)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/types.ts:257](https://github.com/cpfarhood/headlamp-sealed-secr
 
 > **namespace**: `string`
 
-Defined in: [src/types.ts:258](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L258)
+Defined in: [src/types.ts:258](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L258)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/types.ts:258](https://github.com/cpfarhood/headlamp-sealed-secr
 
 > **scope**: [`SealedSecretScope`](../type-aliases/SealedSecretScope.md)
 
-Defined in: [src/types.ts:259](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L259)
+Defined in: [src/types.ts:259](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L259)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/types.ts:259](https://github.com/cpfarhood/headlamp-sealed-secr
 
 > **keyValues**: [`SecretKeyValue`](SecretKeyValue.md)[]
 
-Defined in: [src/types.ts:260](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L260)
+Defined in: [src/types.ts:260](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/types.ts#L260)

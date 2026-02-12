@@ -574,7 +574,7 @@ If issues persist:
    - [Documentation](https://github.com/bitnami-labs/sealed-secrets#sealed-secrets)
 
 3. **Plugin-specific issues**:
-   - [Plugin Issues](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/issues)
+   - [Plugin Issues](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)
    - Include diagnostic bundle when reporting
 
 ## See Also

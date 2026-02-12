@@ -8,7 +8,7 @@
 
 > **isRetryableHttpError**(`error`): `boolean`
 
-Defined in: [src/lib/retry.ts:165](https://github.com/cpfarhood/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L165)
+Defined in: [src/lib/retry.ts:165](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/bdf19cd3bf5a2d679b7ba949108fe9df1843c5f4/headlamp-sealed-secrets/src/lib/retry.ts#L165)
 
 Predicate to check if HTTP error is retryable (5xx, 429, 408)
 
