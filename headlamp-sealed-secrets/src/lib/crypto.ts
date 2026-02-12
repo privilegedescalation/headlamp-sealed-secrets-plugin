@@ -14,6 +14,7 @@
 import forge from 'node-forge';
 import {
   Base64String,
+  CertificateInfo,
   Err,
   Ok,
   PEMCertificate,
@@ -153,4 +154,69 @@ export function encryptKeyValues(
 export function validateCertificate(pemCert: PEMCertificate): boolean {
   const result = parsePublicKeyFromCert(pemCert);
   return result.ok;
+}
+
+/**
+ * Parse certificate and extract metadata
+ *
+ * Extracts validity dates, issuer/subject information, and calculates
+ * expiration status and fingerprint.
+ *
+ * @param pemCert PEM-encoded certificate string (branded type)
+ * @returns Result containing certificate information or error message
+ */
+export function parseCertificateInfo(pemCert: PEMCertificate): Result<CertificateInfo, string> {
+  try {
+    const cert = forge.pki.certificateFromPem(pemCert);
+    const now = new Date();
+
+    // Extract validity dates
+    const validFrom = cert.validity.notBefore;
+    const validTo = cert.validity.notAfter;
+
+    // Calculate expiration status
+    const isExpired = now > validTo;
+    const daysUntilExpiry = Math.floor((validTo.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Format issuer and subject
+    const formatDN = (attributes: forge.pki.CertificateField[]): string => {
+      return attributes.map(a => `${a.shortName}=${a.value}`).join(', ');
+    };
+
+    const issuer = formatDN(cert.issuer.attributes);
+    const subject = formatDN(cert.subject.attributes);
+
+    // Calculate SHA-256 fingerprint
+    const der = forge.asn1.toDer(forge.pki.certificateToAsn1(cert)).getBytes();
+    const md = forge.md.sha256.create();
+    md.update(der);
+    const fingerprint = md.digest().toHex().toUpperCase();
+
+    // Get serial number
+    const serialNumber = cert.serialNumber;
+
+    return Ok({
+      validFrom,
+      validTo,
+      isExpired,
+      daysUntilExpiry,
+      issuer,
+      subject,
+      fingerprint,
+      serialNumber,
+    });
+  } catch (error) {
+    return Err(`Failed to parse certificate info: ${error}`);
+  }
+}
+
+/**
+ * Check if certificate will expire soon (within threshold)
+ *
+ * @param info Certificate information
+ * @param daysThreshold Number of days to consider "expiring soon" (default: 30)
+ * @returns true if certificate will expire within threshold days
+ */
+export function isCertificateExpiringSoon(info: CertificateInfo, daysThreshold = 30): boolean {
+  return !info.isExpired && info.daysUntilExpiry <= daysThreshold;
 }

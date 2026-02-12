@@ -6,34 +6,18 @@
 
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { SectionBox, SimpleTable, StatusLabel } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, Button } from '@mui/material';
-import forge from 'node-forge';
+import { Box, Button, Chip } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { fetchPublicCertificate, getPluginConfig } from '../lib/controller';
-import { PEMCertificate } from '../types';
+import { isCertificateExpiringSoon, parseCertificateInfo } from '../lib/crypto';
+import { CertificateInfo, PEMCertificate } from '../types';
 
 interface SealingKey {
   name: string;
   status: 'active' | 'compromised';
   created: string;
-  notBefore?: string;
-  notAfter?: string;
-}
-
-/**
- * Parse certificate dates from TLS secret
- */
-function parseCertificateDates(certPem: PEMCertificate): { notBefore?: string; notAfter?: string } {
-  try {
-    const cert = forge.pki.certificateFromPem(certPem);
-    return {
-      notBefore: cert.validity.notBefore.toISOString(),
-      notAfter: cert.validity.notAfter.toISOString(),
-    };
-  } catch {
-    return {};
-  }
+  certInfo?: CertificateInfo;
 }
 
 /**
@@ -58,13 +42,20 @@ export function SealingKeysView() {
           | 'active'
           | 'compromised';
         const certPem = secret.data?.['tls.crt'] ? atob(secret.data['tls.crt']) : '';
-        const dates = certPem ? parseCertificateDates(PEMCertificate(certPem)) : {};
+
+        let certInfo: CertificateInfo | undefined;
+        if (certPem) {
+          const infoResult = parseCertificateInfo(PEMCertificate(certPem));
+          if (infoResult.ok) {
+            certInfo = infoResult.value;
+          }
+        }
 
         return {
           name: secret.metadata.name!,
           status,
           created: secret.metadata.creationTimestamp!,
-          ...dates,
+          certInfo,
         };
       })
       .sort((a, b) => {
@@ -148,14 +139,44 @@ export function SealingKeysView() {
                 getter: (key: SealingKey) => new Date(key.created).toLocaleString(),
               },
               {
-                label: 'Valid From',
-                getter: (key: SealingKey) =>
-                  key.notBefore ? new Date(key.notBefore).toLocaleString() : 'N/A',
-              },
-              {
-                label: 'Valid Until',
-                getter: (key: SealingKey) =>
-                  key.notAfter ? new Date(key.notAfter).toLocaleString() : 'N/A',
+                label: 'Certificate Expiry',
+                getter: (key: SealingKey) => {
+                  if (!key.certInfo) return 'N/A';
+
+                  const { certInfo } = key;
+                  const expiryDate = certInfo.validTo.toLocaleDateString();
+
+                  if (certInfo.isExpired) {
+                    return (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip label="Expired" color="error" size="small" />
+                        <span>{expiryDate}</span>
+                      </Box>
+                    );
+                  }
+
+                  if (isCertificateExpiringSoon(certInfo, 30)) {
+                    return (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip
+                          label={`${certInfo.daysUntilExpiry} days left`}
+                          color="warning"
+                          size="small"
+                        />
+                        <span>{expiryDate}</span>
+                      </Box>
+                    );
+                  }
+
+                  return (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <span>{expiryDate}</span>
+                      <span style={{ color: '#666', fontSize: '0.9em' }}>
+                        ({certInfo.daysUntilExpiry} days)
+                      </span>
+                    </Box>
+                  );
+                },
               },
             ]}
           />

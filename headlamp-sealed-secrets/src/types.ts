@@ -259,3 +259,25 @@ export interface EncryptionRequest {
   scope: SealedSecretScope;
   keyValues: SecretKeyValue[];
 }
+
+/**
+ * Certificate information extracted from PEM certificate
+ */
+export interface CertificateInfo {
+  /** Validity period start date */
+  validFrom: Date;
+  /** Validity period end date */
+  validTo: Date;
+  /** Whether certificate is currently expired */
+  isExpired: boolean;
+  /** Days until expiry (negative if expired) */
+  daysUntilExpiry: number;
+  /** Certificate issuer (formatted as DN string) */
+  issuer: string;
+  /** Certificate subject (formatted as DN string) */
+  subject: string;
+  /** SHA-256 fingerprint of certificate */
+  fingerprint: string;
+  /** Serial number of certificate */
+  serialNumber: string;
+}

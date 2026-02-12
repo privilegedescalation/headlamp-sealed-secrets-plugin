@@ -25,7 +25,12 @@ import {
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { fetchPublicCertificate, getPluginConfig } from '../lib/controller';
-import { encryptKeyValues, parsePublicKeyFromCert } from '../lib/crypto';
+import {
+  encryptKeyValues,
+  isCertificateExpiringSoon,
+  parseCertificateInfo,
+  parsePublicKeyFromCert,
+} from '../lib/crypto';
 import { SealedSecret } from '../lib/SealedSecretCRD';
 import { validateSecretKey, validateSecretName, validateSecretValue } from '../lib/validators';
 import { PlaintextValue, SealedSecretScope, SecretKeyValue } from '../types';
@@ -125,7 +130,27 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
         return;
       }
 
-      // 2. Parse the public key
+      // 2. Check certificate expiry
+      const certInfoResult = parseCertificateInfo(certResult.value);
+      if (certInfoResult.ok) {
+        const certInfo = certInfoResult.value;
+
+        if (certInfo.isExpired) {
+          enqueueSnackbar(
+            `Warning: Controller certificate expired on ${certInfo.validTo.toLocaleDateString()}. ` +
+              'Secrets may not be decryptable.',
+            { variant: 'warning' }
+          );
+        } else if (isCertificateExpiringSoon(certInfo, 30)) {
+          enqueueSnackbar(
+            `Warning: Controller certificate expires in ${certInfo.daysUntilExpiry} days ` +
+              `(${certInfo.validTo.toLocaleDateString()}).`,
+            { variant: 'warning' }
+          );
+        }
+      }
+
+      // 3. Parse the public key
       const keyResult = parsePublicKeyFromCert(certResult.value);
 
       if (keyResult.ok === false) {
@@ -133,7 +158,7 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
         return;
       }
 
-      // 3. Encrypt all values client-side
+      // 4. Encrypt all values client-side
       const encryptResult = encryptKeyValues(
         keyResult.value,
         validKeyValues.map(kv => ({ key: kv.key, value: PlaintextValue(kv.value) })),
@@ -147,7 +172,7 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
         return;
       }
 
-      // 4. Construct the SealedSecret object
+      // 5. Construct the SealedSecret object
       const sealedSecretData: any = {
         apiVersion: 'bitnami.com/v1alpha1',
         kind: 'SealedSecret',
@@ -171,7 +196,7 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
         sealedSecretData.metadata.annotations['sealedsecrets.bitnami.com/cluster-wide'] = 'true';
       }
 
-      // 5. Apply to the cluster
+      // 6. Apply to the cluster
       await SealedSecret.apiEndpoint.post(sealedSecretData);
 
       enqueueSnackbar('SealedSecret created successfully', { variant: 'success' });
