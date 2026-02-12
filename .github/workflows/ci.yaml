@@ -2,17 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  test:
+  lint-and-test:
     runs-on: local-ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -26,26 +26,26 @@ jobs:
         working-directory: ./headlamp-sealed-secrets
         run: npm ci
 
-      - name: Run type check
+      - name: Type-check
         working-directory: ./headlamp-sealed-secrets
         run: npm run tsc
 
-      - name: Run linter
+      - name: Lint
         working-directory: ./headlamp-sealed-secrets
         run: npm run lint
 
       - name: Build plugin
         working-directory: ./headlamp-sealed-secrets
-        run: npm run build
+        run: npx @kinvolk/headlamp-plugin build
 
       - name: Verify build artifacts
         working-directory: ./headlamp-sealed-secrets
         run: |
           if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
-            echo "Error: dist directory is empty or missing"
+            echo "::error::dist directory is empty or missing"
             exit 1
           fi
-          echo "Build artifacts verified successfully"
+          echo "✓ Build artifacts verified"
           ls -lh dist/
 
       - name: Upload build artifact (for inspection)

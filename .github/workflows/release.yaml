@@ -1,0 +1,146 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: local-ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.extract_version.outputs.version }}
+      checksum: ${{ steps.compute_checksum.outputs.checksum }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: extract_version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Version: ${VERSION}"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: headlamp-sealed-secrets/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./headlamp-sealed-secrets
+        run: npm ci
+
+      - name: Run type check
+        working-directory: ./headlamp-sealed-secrets
+        run: npm run tsc
+
+      - name: Run linter
+        working-directory: ./headlamp-sealed-secrets
+        run: npm run lint
+
+      - name: Build plugin
+        working-directory: ./headlamp-sealed-secrets
+        run: npx @kinvolk/headlamp-plugin build
+
+      - name: Package plugin
+        working-directory: ./headlamp-sealed-secrets
+        run: npx @kinvolk/headlamp-plugin package
+
+      - name: Move tarball to root
+        working-directory: ./headlamp-sealed-secrets
+        run: |
+          TARBALL=$(ls *.tar.gz)
+          mv "${TARBALL}" "../${TARBALL}"
+          echo "Moved tarball: ${TARBALL}"
+
+      - name: Validate tarball name
+        run: |
+          EXPECTED="headlamp-sealed-secrets-${{ steps.extract_version.outputs.version }}.tar.gz"
+          ACTUAL=$(ls *.tar.gz)
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "::error::Tarball name mismatch! Expected: $EXPECTED, Got: $ACTUAL"
+            exit 1
+          fi
+          echo "✓ Tarball name validated: $ACTUAL"
+
+      - name: Compute checksum
+        id: compute_checksum
+        run: |
+          TARBALL="headlamp-sealed-secrets-${{ steps.extract_version.outputs.version }}.tar.gz"
+          CHECKSUM=$(sha256sum "$TARBALL" | awk '{print $1}')
+          echo "checksum=${CHECKSUM}" >> $GITHUB_OUTPUT
+          echo "Checksum: sha256:${CHECKSUM}"
+
+      - name: Verify tarball contents
+        run: |
+          TARBALL="headlamp-sealed-secrets-${{ steps.extract_version.outputs.version }}.tar.gz"
+          echo "Tarball contents:"
+          tar -tzf "${TARBALL}" | head -20
+
+          # Verify main.js exists
+          if ! tar -tzf "${TARBALL}" | grep -q "package/main.js"; then
+            echo "::error::main.js not found in tarball"
+            exit 1
+          fi
+          echo "✓ Tarball contents validated"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: headlamp-sealed-secrets-${{ steps.extract_version.outputs.version }}.tar.gz
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  update-metadata:
+    needs: build-and-release
+    runs-on: local-ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update checksum in metadata
+        run: |
+          VERSION="${{ needs.build-and-release.outputs.version }}"
+          CHECKSUM="${{ needs.build-and-release.outputs.checksum }}"
+
+          sed -i "s|headlamp/plugin/archive-checksum:.*|headlamp/plugin/archive-checksum: sha256:${CHECKSUM}|" artifacthub-pkg.yml
+
+          git add artifacthub-pkg.yml
+          if ! git diff --cached --quiet; then
+            git commit -m "ci: update checksum for v${VERSION}"
+            git push origin main
+            echo "✓ Checksum updated on main branch"
+          else
+            echo "✓ Checksum already up to date"
+          fi
+
+      - name: Release Summary
+        run: |
+          echo "Release Summary:"
+          echo "=================="
+          echo "Version: v${{ needs.build-and-release.outputs.version }}"
+          echo "Tarball: headlamp-sealed-secrets-${{ needs.build-and-release.outputs.version }}.tar.gz"
+          echo "Checksum: sha256:${{ needs.build-and-release.outputs.checksum }}"
+          echo "Archive URL: https://github.com/${{ github.repository }}/releases/download/v${{ needs.build-and-release.outputs.version }}/headlamp-sealed-secrets-${{ needs.build-and-release.outputs.version }}.tar.gz"
+          echo ""
+          echo "Metadata updated on main branch."
+          echo "Artifact Hub will sync within 5-10 minutes."
