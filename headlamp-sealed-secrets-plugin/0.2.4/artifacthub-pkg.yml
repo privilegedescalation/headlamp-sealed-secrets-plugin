@@ -77,3 +77,6 @@ recommendations:
   - url: https://artifacthub.io/packages/helm/sealed-secrets/sealed-secrets
 provider:
   name: cpfarhood
+changes:
+  - kind: fixed
+    description: "Replace all Material-UI icons with Iconify equivalents to fix plugin loading (Headlamp provides @iconify/react, not @mui/icons-material)"
