@@ -1,8 +1,7 @@
 {
   "name": "headlamp-sealed-secrets",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Headlamp plugin for Bitnami Sealed Secrets - manage encrypted Kubernetes secrets",
-  "main": "dist/main.js",
   "files": [
     "dist",
     "README.md",
