@@ -5,7 +5,6 @@ name: headlamp-sealed-secrets
 displayName: Sealed Secrets Plugin for Headlamp
 createdAt: "2026-02-11T00:00:00Z"
 description: A comprehensive Headlamp plugin for managing Bitnami Sealed Secrets with client-side encryption and RBAC-aware UI
-logoURL: https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/main/docs/sealed-secrets.png
 license: Apache-2.0
 homeURL: https://github.com/cpfarhood/headlamp-sealed-secrets-plugin
 appVersion: 0.2.0
