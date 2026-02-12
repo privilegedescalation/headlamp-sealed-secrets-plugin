@@ -27,6 +27,7 @@ import React from 'react';
 import { fetchPublicCertificate, getPluginConfig } from '../lib/controller';
 import { encryptKeyValues, parsePublicKeyFromCert } from '../lib/crypto';
 import { SealedSecret } from '../lib/SealedSecretCRD';
+import { validateSecretKey, validateSecretName, validateSecretValue } from '../lib/validators';
 import { PlaintextValue, SealedSecretScope, SecretKeyValue } from '../types';
 
 interface EncryptDialogProps {
@@ -76,13 +77,37 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
   };
 
   const handleCreate = async () => {
-    // Validate inputs
-    if (!name) {
-      enqueueSnackbar('Secret name is required', { variant: 'error' });
+    // Validate secret name
+    const nameValidation = validateSecretName(name);
+    if (!nameValidation.valid) {
+      enqueueSnackbar(nameValidation.error, { variant: 'error' });
       return;
     }
 
-    const validKeyValues = keyValues.filter(kv => kv.key && kv.value);
+    // Validate key-value pairs
+    const validKeyValues: Array<{ key: string; value: string }> = [];
+    for (const kv of keyValues) {
+      if (!kv.key && !kv.value) {
+        continue; // Skip empty rows
+      }
+
+      const keyValidation = validateSecretKey(kv.key);
+      if (!keyValidation.valid) {
+        enqueueSnackbar(`Invalid key "${kv.key}": ${keyValidation.error}`, { variant: 'error' });
+        return;
+      }
+
+      const valueValidation = validateSecretValue(kv.value);
+      if (!valueValidation.valid) {
+        enqueueSnackbar(`Invalid value for key "${kv.key}": ${valueValidation.error}`, {
+          variant: 'error',
+        });
+        return;
+      }
+
+      validKeyValues.push({ key: kv.key, value: kv.value });
+    }
+
     if (validKeyValues.length === 0) {
       enqueueSnackbar('At least one key-value pair is required', { variant: 'error' });
       return;

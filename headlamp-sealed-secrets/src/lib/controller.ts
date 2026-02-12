@@ -6,6 +6,7 @@
  */
 
 import { AsyncResult, Err, PEMCertificate, PluginConfig, tryCatchAsync } from '../types';
+import { retryWithBackoff } from './retry';
 
 /**
  * Build the controller proxy URL
@@ -16,12 +17,9 @@ export function getControllerProxyURL(config: PluginConfig, path: string): strin
 }
 
 /**
- * Fetch the controller's public certificate
- *
- * @param config Plugin configuration
- * @returns Result containing PEM-encoded certificate (branded type) or error message
+ * Fetch the controller's public certificate (internal, no retry)
  */
-export async function fetchPublicCertificate(
+async function fetchPublicCertificateOnce(
   config: PluginConfig
 ): AsyncResult<PEMCertificate, string> {
   const url = getControllerProxyURL(config, '/v1/cert.pem');
@@ -39,6 +37,28 @@ export async function fetchPublicCertificate(
   }
 
   return result;
+}
+
+/**
+ * Fetch the controller's public certificate with retry logic
+ *
+ * Automatically retries on network errors with exponential backoff:
+ * - Max 3 attempts
+ * - Initial delay: 1s
+ * - Max delay: 10s
+ * - Exponential backoff with jitter
+ *
+ * @param config Plugin configuration
+ * @returns Result containing PEM-encoded certificate (branded type) or error message
+ */
+export async function fetchPublicCertificate(
+  config: PluginConfig
+): AsyncResult<PEMCertificate, string> {
+  return retryWithBackoff(() => fetchPublicCertificateOnce(config), {
+    maxAttempts: 3,
+    initialDelayMs: 1000,
+    maxDelayMs: 10000,
+  });
 }
 
 /**
