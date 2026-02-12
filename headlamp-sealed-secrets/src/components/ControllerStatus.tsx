@@ -8,7 +8,7 @@
 import { CheckCircle, Error as ErrorIcon, Warning } from '@mui/icons-material';
 import { Box, Chip, CircularProgress, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { checkControllerHealth, ControllerHealthStatus, getPluginConfig } from '../lib/controller';
+import { useControllerHealth } from '../hooks/useControllerHealth';
 
 interface ControllerStatusProps {
   /** Whether to auto-refresh the status */
@@ -27,32 +27,7 @@ export function ControllerStatus({
   refreshIntervalMs = 30000,
   showDetails = true,
 }: ControllerStatusProps) {
-  const [status, setStatus] = React.useState<ControllerHealthStatus | null>(null);
-  const [loading, setLoading] = React.useState(true);
-
-  const fetchStatus = React.useCallback(async () => {
-    setLoading(true);
-    const config = getPluginConfig();
-    const result = await checkControllerHealth(config);
-
-    if (result.ok) {
-      setStatus(result.value);
-    }
-    setLoading(false);
-  }, []);
-
-  // Initial fetch
-  React.useEffect(() => {
-    fetchStatus();
-  }, [fetchStatus]);
-
-  // Auto-refresh
-  React.useEffect(() => {
-    if (!autoRefresh) return;
-
-    const interval = setInterval(fetchStatus, refreshIntervalMs);
-    return () => clearInterval(interval);
-  }, [autoRefresh, refreshIntervalMs, fetchStatus]);
+  const { health: status, loading } = useControllerHealth(autoRefresh, refreshIntervalMs);
 
   if (loading || !status) {
     return (

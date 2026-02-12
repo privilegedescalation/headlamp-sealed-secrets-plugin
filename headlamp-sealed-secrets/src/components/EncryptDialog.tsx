@@ -24,16 +24,9 @@ import {
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { fetchPublicCertificate, getPluginConfig } from '../lib/controller';
-import {
-  encryptKeyValues,
-  isCertificateExpiringSoon,
-  parseCertificateInfo,
-  parsePublicKeyFromCert,
-} from '../lib/crypto';
+import { useSealedSecretEncryption } from '../hooks/useSealedSecretEncryption';
 import { SealedSecret } from '../lib/SealedSecretCRD';
-import { validateSecretKey, validateSecretName, validateSecretValue } from '../lib/validators';
-import { PlaintextValue, SealedSecretScope, SecretKeyValue } from '../types';
+import { SealedSecretScope, SecretKeyValue } from '../types';
 
 interface EncryptDialogProps {
   open: boolean;
@@ -50,8 +43,8 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
   const [keyValues, setKeyValues] = React.useState<(SecretKeyValue & { showValue: boolean })[]>([
     { key: '', value: '', showValue: false },
   ]);
-  const [encrypting, setEncrypting] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const { encrypt, encrypting } = useSealedSecretEncryption();
 
   const [namespaces] = K8s.ResourceClasses.Namespace.useList();
 
@@ -82,122 +75,28 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
   };
 
   const handleCreate = async () => {
-    // Validate secret name
-    const nameValidation = validateSecretName(name);
-    if (!nameValidation.valid) {
-      enqueueSnackbar(nameValidation.error, { variant: 'error' });
+    // Filter out empty rows
+    const validKeyValues = keyValues.filter(kv => kv.key || kv.value).map(kv => ({
+      key: kv.key,
+      value: kv.value,
+    }));
+
+    // Use the encryption hook
+    const result = await encrypt({
+      name,
+      namespace,
+      scope,
+      keyValues: validKeyValues,
+    });
+
+    // If encryption failed, the hook already showed the error
+    if (result.ok === false) {
       return;
     }
-
-    // Validate key-value pairs
-    const validKeyValues: Array<{ key: string; value: string }> = [];
-    for (const kv of keyValues) {
-      if (!kv.key && !kv.value) {
-        continue; // Skip empty rows
-      }
-
-      const keyValidation = validateSecretKey(kv.key);
-      if (!keyValidation.valid) {
-        enqueueSnackbar(`Invalid key "${kv.key}": ${keyValidation.error}`, { variant: 'error' });
-        return;
-      }
-
-      const valueValidation = validateSecretValue(kv.value);
-      if (!valueValidation.valid) {
-        enqueueSnackbar(`Invalid value for key "${kv.key}": ${valueValidation.error}`, {
-          variant: 'error',
-        });
-        return;
-      }
-
-      validKeyValues.push({ key: kv.key, value: kv.value });
-    }
-
-    if (validKeyValues.length === 0) {
-      enqueueSnackbar('At least one key-value pair is required', { variant: 'error' });
-      return;
-    }
-
-    setEncrypting(true);
 
     try {
-      // 1. Fetch the controller's public certificate
-      const config = getPluginConfig();
-      const certResult = await fetchPublicCertificate(config);
-
-      if (certResult.ok === false) {
-        enqueueSnackbar(`Failed to fetch certificate: ${certResult.error}`, { variant: 'error' });
-        return;
-      }
-
-      // 2. Check certificate expiry
-      const certInfoResult = parseCertificateInfo(certResult.value);
-      if (certInfoResult.ok) {
-        const certInfo = certInfoResult.value;
-
-        if (certInfo.isExpired) {
-          enqueueSnackbar(
-            `Warning: Controller certificate expired on ${certInfo.validTo.toLocaleDateString()}. ` +
-              'Secrets may not be decryptable.',
-            { variant: 'warning' }
-          );
-        } else if (isCertificateExpiringSoon(certInfo, 30)) {
-          enqueueSnackbar(
-            `Warning: Controller certificate expires in ${certInfo.daysUntilExpiry} days ` +
-              `(${certInfo.validTo.toLocaleDateString()}).`,
-            { variant: 'warning' }
-          );
-        }
-      }
-
-      // 3. Parse the public key
-      const keyResult = parsePublicKeyFromCert(certResult.value);
-
-      if (keyResult.ok === false) {
-        enqueueSnackbar(`Invalid certificate: ${keyResult.error}`, { variant: 'error' });
-        return;
-      }
-
-      // 4. Encrypt all values client-side
-      const encryptResult = encryptKeyValues(
-        keyResult.value,
-        validKeyValues.map(kv => ({ key: kv.key, value: PlaintextValue(kv.value) })),
-        namespace,
-        name,
-        scope
-      );
-
-      if (encryptResult.ok === false) {
-        enqueueSnackbar(`Encryption failed: ${encryptResult.error}`, { variant: 'error' });
-        return;
-      }
-
-      // 5. Construct the SealedSecret object
-      const sealedSecretData: any = {
-        apiVersion: 'bitnami.com/v1alpha1',
-        kind: 'SealedSecret',
-        metadata: {
-          name,
-          namespace,
-          annotations: {},
-        },
-        spec: {
-          encryptedData: encryptResult.value,
-          template: {
-            metadata: {},
-          },
-        },
-      };
-
-      // Add scope annotations
-      if (scope === 'namespace-wide') {
-        sealedSecretData.metadata.annotations['sealedsecrets.bitnami.com/namespace-wide'] = 'true';
-      } else if (scope === 'cluster-wide') {
-        sealedSecretData.metadata.annotations['sealedsecrets.bitnami.com/cluster-wide'] = 'true';
-      }
-
-      // 6. Apply to the cluster
-      await SealedSecret.apiEndpoint.post(sealedSecretData);
+      // Apply the SealedSecret to the cluster
+      await SealedSecret.apiEndpoint.post(result.value.sealedSecretData);
 
       enqueueSnackbar('SealedSecret created successfully', { variant: 'success' });
 
@@ -209,8 +108,6 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
       onClose();
     } catch (error: any) {
       enqueueSnackbar(`Failed to create SealedSecret: ${error.message}`, { variant: 'error' });
-    } finally {
-      setEncrypting(false);
     }
   };
 
