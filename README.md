@@ -8,8 +8,6 @@
 
 A comprehensive [Headlamp](https://headlamp.dev) plugin for managing [Bitnami Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) with **client-side encryption** and **RBAC-aware UI**.
 
-> 🔐 **Zero Trust Security**: All encryption happens in your browser. Plaintext secrets never leave your machine.
-
 ## ✨ Highlights
 
 ### 🔒 Security First
