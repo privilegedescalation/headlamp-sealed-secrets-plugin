@@ -2,7 +2,7 @@
 # https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml
 version: 0.2.14
 name: headlamp-sealed-secrets
-displayName: Sealed Secrets Plugin for Headlamp
+displayName: Sealed Secrets
 createdAt: "2026-02-12T00:00:00Z"
 description: A comprehensive Headlamp plugin for managing Bitnami Sealed Secrets with client-side encryption and RBAC-aware UI
 license: Apache-2.0

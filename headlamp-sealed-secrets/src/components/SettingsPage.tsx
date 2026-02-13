@@ -151,6 +151,6 @@ export function SettingsPage() {
             <dd style={{ display: 'inline', margin: 0 }}>8080</dd>
           </Typography>
         </Box>
-      </Box>
+    </Box>
   );
 }

@@ -57,15 +57,15 @@ function formatScope(scope: SealedSecretScope): string {
  * SealedSecret detail view component
  */
 export function SealedSecretDetail() {
-  const { namespace, name } = useParams<{ namespace: string; name: string }>();
-  const [sealedSecret, error] = SealedSecret.useGet(name, namespace);
-  const [secret] = K8s.ResourceClasses.Secret.useGet(name, namespace);
+  const { namespace = '', name = '' } = useParams<{ namespace: string; name: string }>();
+  const [sealedSecret, error] = SealedSecret.useGet(name || undefined, namespace || undefined);
+  const [secret] = K8s.ResourceClasses.Secret.useGet(name || undefined, namespace || undefined);
   const [decryptKey, setDecryptKey] = React.useState<string | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [rotating, setRotating] = React.useState(false);
   const [canDecrypt, setCanDecrypt] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { permissions } = usePermissions(namespace);
+  const { permissions } = usePermissions(namespace || undefined);
 
   // Check if user can decrypt secrets (requires get permission on Secrets)
   React.useEffect(() => {
