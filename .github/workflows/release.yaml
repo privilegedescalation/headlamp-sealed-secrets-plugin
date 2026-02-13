@@ -24,6 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get package name
+        id: package_name
+        working-directory: ./headlamp-sealed-secrets
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          echo "name=${PKG_NAME}" >> $GITHUB_OUTPUT
+          echo "Package name: ${PKG_NAME}"
+
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
@@ -38,7 +46,7 @@ jobs:
       - name: Update artifacthub-pkg.yml version
         run: |
           VERSION="${{ inputs.version }}"
-          RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/headlamp-sealed-secrets-${VERSION}.tar.gz"
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${{ steps.package_name.outputs.name }}-${VERSION}.tar.gz"
 
           sed -i "s|^version:.*|version: ${VERSION}|" artifacthub-pkg.yml
           sed -i "s|^appVersion:.*|appVersion: ${VERSION}|" artifacthub-pkg.yml
@@ -74,7 +82,7 @@ jobs:
       - name: Move tarball to root
         working-directory: ./headlamp-sealed-secrets
         run: |
-          TARBALL="headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          TARBALL="${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           if [ ! -f "${TARBALL}" ]; then
             echo "::error::Expected tarball ${TARBALL} not found"
             ls -la *.tar.gz
@@ -85,7 +93,7 @@ jobs:
 
       - name: Validate tarball name
         run: |
-          EXPECTED="headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          EXPECTED="${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           ACTUAL=$(ls *.tar.gz)
           if [ "$EXPECTED" != "$ACTUAL" ]; then
             echo "::error::Tarball name mismatch! Expected: $EXPECTED, Got: $ACTUAL"
@@ -96,19 +104,19 @@ jobs:
       - name: Compute checksum
         id: compute_checksum
         run: |
-          TARBALL="headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          TARBALL="${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           CHECKSUM=$(sha256sum "$TARBALL" | awk '{print $1}')
           echo "checksum=${CHECKSUM}" >> $GITHUB_OUTPUT
           echo "Checksum: sha256:${CHECKSUM}"
 
       - name: Verify tarball contents
         run: |
-          TARBALL="headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          TARBALL="${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           echo "Tarball contents:"
           tar -tzf "${TARBALL}" | head -20
 
-          # Verify main.js exists (structure is headlamp-sealed-secrets/main.js)
-          if ! tar -tzf "${TARBALL}" | grep -q "headlamp-sealed-secrets/main.js"; then
+          # Verify main.js exists (structure is <package-name>/main.js)
+          if ! tar -tzf "${TARBALL}" | grep -q "${{ steps.package_name.outputs.name }}/main.js"; then
             echo "::error::main.js not found in tarball"
             exit 1
           fi
@@ -134,7 +142,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "v${{ inputs.version }}"
-          files: headlamp-sealed-secrets-${{ inputs.version }}.tar.gz
+          files: ${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz
           fail_on_unmatched_files: true
           draft: false
           prerelease: false
@@ -147,9 +155,9 @@ jobs:
           echo "Release Summary:"
           echo "=================="
           echo "Version: v${{ inputs.version }}"
-          echo "Tarball: headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          echo "Tarball: ${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           echo "Checksum: sha256:${{ steps.compute_checksum.outputs.checksum }}"
-          echo "Archive URL: https://github.com/${{ github.repository }}/releases/download/v${{ inputs.version }}/headlamp-sealed-secrets-${{ inputs.version }}.tar.gz"
+          echo "Archive URL: https://github.com/${{ github.repository }}/releases/download/v${{ inputs.version }}/${{ steps.package_name.outputs.name }}-${{ inputs.version }}.tar.gz"
           echo ""
           echo "✓ Version bumped to ${{ inputs.version }}"
           echo "✓ Metadata updated with checksum"
