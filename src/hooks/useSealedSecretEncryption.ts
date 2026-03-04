@@ -15,14 +15,7 @@ import {
   parsePublicKeyFromCert,
 } from '../lib/crypto';
 import { validateSecretKey, validateSecretName, validateSecretValue } from '../lib/validators';
-import {
-  AsyncResult,
-  CertificateInfo,
-  Err,
-  Ok,
-  PlaintextValue,
-  SealedSecretScope,
-} from '../types';
+import { AsyncResult, CertificateInfo, Err, Ok, PlaintextValue, SealedSecretScope } from '../types';
 
 /**
  * Request parameters for encryption

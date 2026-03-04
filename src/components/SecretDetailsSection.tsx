@@ -6,7 +6,11 @@
  */
 
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { NameValueTable, SectionBox, StatusLabel } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import {
+  NameValueTable,
+  SectionBox,
+  StatusLabel,
+} from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import React from 'react';
 import { SealedSecret } from '../lib/SealedSecretCRD';
 

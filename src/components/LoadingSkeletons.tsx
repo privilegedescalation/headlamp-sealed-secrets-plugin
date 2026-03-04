@@ -41,15 +41,37 @@ export function SealedSecretDetailSkeleton() {
       <Skeleton variant="text" width="40%" height={40} sx={{ mb: 3 }} animation="wave" />
 
       {/* Metadata section */}
-      <Skeleton variant="rectangular" height={200} sx={{ mb: 2, borderRadius: 1 }} animation="wave" />
+      <Skeleton
+        variant="rectangular"
+        height={200}
+        sx={{ mb: 2, borderRadius: 1 }}
+        animation="wave"
+      />
 
       {/* Encrypted data section */}
-      <Skeleton variant="rectangular" height={150} sx={{ mb: 2, borderRadius: 1 }} animation="wave" />
+      <Skeleton
+        variant="rectangular"
+        height={150}
+        sx={{ mb: 2, borderRadius: 1 }}
+        animation="wave"
+      />
 
       {/* Actions section */}
       <Box sx={{ display: 'flex', gap: 2 }}>
-        <Skeleton variant="rectangular" width={120} height={36} sx={{ borderRadius: 1 }} animation="wave" />
-        <Skeleton variant="rectangular" width={120} height={36} sx={{ borderRadius: 1 }} animation="wave" />
+        <Skeleton
+          variant="rectangular"
+          width={120}
+          height={36}
+          sx={{ borderRadius: 1 }}
+          animation="wave"
+        />
+        <Skeleton
+          variant="rectangular"
+          width={120}
+          height={36}
+          sx={{ borderRadius: 1 }}
+          animation="wave"
+        />
       </Box>
     </Box>
   );
@@ -66,10 +88,27 @@ export function SealingKeysListSkeleton() {
       {[1, 2].map(i => (
         <Box key={i} sx={{ mb: 3 }}>
           <Skeleton variant="text" width="30%" height={32} sx={{ mb: 1 }} animation="wave" />
-          <Skeleton variant="rectangular" height={100} sx={{ borderRadius: 1, mb: 1 }} animation="wave" />
+          <Skeleton
+            variant="rectangular"
+            height={100}
+            sx={{ borderRadius: 1, mb: 1 }}
+            animation="wave"
+          />
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Skeleton variant="rectangular" width={100} height={28} sx={{ borderRadius: 1 }} animation="wave" />
-            <Skeleton variant="rectangular" width={100} height={28} sx={{ borderRadius: 1 }} animation="wave" />
+            <Skeleton
+              variant="rectangular"
+              width={100}
+              height={28}
+              sx={{ borderRadius: 1 }}
+              animation="wave"
+            />
+            <Skeleton
+              variant="rectangular"
+              width={100}
+              height={28}
+              sx={{ borderRadius: 1 }}
+              animation="wave"
+            />
           </Box>
         </Box>
       ))}

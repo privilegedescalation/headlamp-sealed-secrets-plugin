@@ -39,7 +39,10 @@ describe('retry logic', () => {
         .mockResolvedValueOnce({ ok: false, error: 'error2' })
         .mockResolvedValueOnce({ ok: true, value: 'success' });
 
-      const promise = retryWithBackoff(failTwiceThenSucceed, { maxAttempts: 3, initialDelayMs: 100 });
+      const promise = retryWithBackoff(failTwiceThenSucceed, {
+        maxAttempts: 3,
+        initialDelayMs: 100,
+      });
       await vi.runAllTimersAsync();
       const result = await promise;
 
@@ -72,7 +75,10 @@ describe('retry logic', () => {
         .mockResolvedValueOnce({ ok: false, error: 'error2' })
         .mockResolvedValueOnce({ ok: true, value: 'success' });
 
-      const promise = retryWithBackoff(failTwiceThenSucceed, { maxAttempts: 3, initialDelayMs: 1000 });
+      const promise = retryWithBackoff(failTwiceThenSucceed, {
+        maxAttempts: 3,
+        initialDelayMs: 1000,
+      });
 
       // Fast-forward through retries
       await vi.runAllTimersAsync();

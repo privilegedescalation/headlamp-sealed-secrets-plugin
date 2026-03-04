@@ -109,9 +109,7 @@ export async function retryWithBackoff<T, E>(
       const isLastAttempt = attempt === opts.maxAttempts - 1;
       if (isLastAttempt) {
         // No more retries, return final error
-        return Err(
-          `Operation failed after ${opts.maxAttempts} attempts:\n${errors.join('\n')}`
-        );
+        return Err(`Operation failed after ${opts.maxAttempts} attempts:\n${errors.join('\n')}`);
       }
 
       // Wait before retrying
@@ -124,9 +122,7 @@ export async function retryWithBackoff<T, E>(
 
       const isLastAttempt = attempt === opts.maxAttempts - 1;
       if (isLastAttempt) {
-        return Err(
-          `Operation failed after ${opts.maxAttempts} attempts:\n${errors.join('\n')}`
-        );
+        return Err(`Operation failed after ${opts.maxAttempts} attempts:\n${errors.join('\n')}`);
       }
 
       const delay = calculateDelay(attempt, opts);
@@ -171,10 +167,12 @@ export function isRetryableHttpError(error: Error): boolean {
   }
 
   // Check for specific retryable status codes
-  return message.includes('429') || // Too Many Requests
+  return (
+    message.includes('429') || // Too Many Requests
     message.includes('408') || // Request Timeout
     message.includes('503') || // Service Unavailable
-    message.includes('504'); // Gateway Timeout
+    message.includes('504')
+  ); // Gateway Timeout
 }
 
 /**

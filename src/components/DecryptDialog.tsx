@@ -80,7 +80,9 @@ export function DecryptDialog({ sealedSecret, secretKey, onClose }: DecryptDialo
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} aria-label="Close dialog">Close</Button>
+          <Button onClick={onClose} aria-label="Close dialog">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -103,7 +105,9 @@ export function DecryptDialog({ sealedSecret, secretKey, onClose }: DecryptDialo
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} aria-label="Close dialog">Close</Button>
+          <Button onClick={onClose} aria-label="Close dialog">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -182,7 +186,9 @@ export function DecryptDialog({ sealedSecret, secretKey, onClose }: DecryptDialo
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} aria-label="Close dialog">Close</Button>
+        <Button onClick={onClose} aria-label="Close dialog">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

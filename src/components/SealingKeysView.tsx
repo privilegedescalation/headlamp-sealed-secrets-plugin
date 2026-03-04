@@ -5,7 +5,11 @@
  */
 
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
-import { SectionBox, SimpleTable, StatusLabel } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import {
+  SectionBox,
+  SimpleTable,
+  StatusLabel,
+} from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Button, Chip } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
@@ -27,7 +31,9 @@ interface SealingKey {
  */
 export function SealingKeysView() {
   const config = getPluginConfig();
-  const [secrets, , loading] = K8s.ResourceClasses.Secret.useList({ namespace: config.controllerNamespace });
+  const [secrets, , loading] = K8s.ResourceClasses.Secret.useList({
+    namespace: config.controllerNamespace,
+  });
   const { enqueueSnackbar } = useSnackbar();
 
   // Filter for sealing key secrets

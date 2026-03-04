@@ -87,9 +87,7 @@ export function SealedSecretDetail() {
           <Typography variant="h6" gutterBottom>
             Failed to load SealedSecret
           </Typography>
-          <Typography variant="body2">
-            {String(error)}
-          </Typography>
+          <Typography variant="body2">{String(error)}</Typography>
         </Alert>
       </Box>
     );
@@ -162,165 +160,167 @@ export function SealedSecretDetail() {
                   <span>{sealedSecret.metadata.name}</span>
                 </Box>
                 <Box>
-                {permissions?.canUpdate && (
-                  <Button
-                    variant="outlined"
-                    onClick={handleRotate}
-                    disabled={rotating}
-                    sx={{ mr: 1 }}
-                  >
-                    {rotating ? 'Re-encrypting...' : 'Re-encrypt'}
-                  </Button>
-                )}
-                {permissions?.canDelete && (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => setDeleteDialogOpen(true)}
-                  >
-                    Delete
-                  </Button>
-                )}
+                  {permissions?.canUpdate && (
+                    <Button
+                      variant="outlined"
+                      onClick={handleRotate}
+                      disabled={rotating}
+                      sx={{ mr: 1 }}
+                    >
+                      {rotating ? 'Re-encrypting...' : 'Re-encrypt'}
+                    </Button>
+                  )}
+                  {permissions?.canDelete && (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => setDeleteDialogOpen(true)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </Box>
               </Box>
-            </Box>
-          }
-        >
-          <NameValueTable
-            rows={[
-              {
-                name: 'Name',
-                value: String(sealedSecret.metadata.name || ''),
-              },
-              {
-                name: 'Namespace',
-                value: String(sealedSecret.metadata.namespace || ''),
-              },
-              {
-                name: 'Scope',
-                value: String(formatScope(sealedSecret.scope)),
-              },
-              {
-                name: 'Sync Status',
-                value: (
-                  <StatusLabel status={sealedSecret.isSynced ? 'success' : 'error'}>
-                    {sealedSecret.isSynced ? 'Synced' : 'Not Synced'}
-                  </StatusLabel>
-                ),
-              },
-              {
-                name: 'Status Message',
-                value: String(sealedSecret.syncMessage || 'Unknown'),
-                hide: !sealedSecret.syncCondition,
-              },
-              {
-                name: 'Age',
-                value: String(sealedSecret.getAge() || ''),
-              },
-              {
-                name: 'Created',
-                value: sealedSecret.metadata.creationTimestamp
-                  ? new Date(sealedSecret.metadata.creationTimestamp).toLocaleString()
-                  : 'Unknown',
-              },
-            ]}
-          />
-        </SectionBox>
-
-        <SectionBox title="Encrypted Data">
-          <SimpleTable
-            data={encryptedKeys.map(key => ({
-              key,
-              value: sealedSecret.spec.encryptedData[key],
-            }))}
-            columns={[
-              {
-                label: 'Key',
-                getter: (row: any) => row.key,
-              },
-              {
-                label: 'Encrypted Value',
-                getter: (row: any) => {
-                  const val = row.value;
-                  return val.length > 40 ? val.substring(0, 40) + '...' : val;
-                },
-              },
-              {
-                label: 'Actions',
-                getter: (row: any) =>
-                  canDecrypt ? (
-                    <Button size="small" onClick={() => setDecryptKey(row.key)}>
-                      Decrypt
-                    </Button>
-                  ) : (
-                    <Button size="small" disabled title="No permission to access Secrets">
-                      Decrypt
-                    </Button>
-                  ),
-              },
-            ]}
-          />
-        </SectionBox>
-
-        {sealedSecret.spec.template && (
-          <SectionBox title="Template">
+            }
+          >
             <NameValueTable
               rows={[
                 {
-                  name: 'Secret Type',
-                  value: String(sealedSecret.spec.template.type || 'Opaque'),
+                  name: 'Name',
+                  value: String(sealedSecret.metadata.name || ''),
                 },
                 {
-                  name: 'Labels',
-                  value: String(JSON.stringify(sealedSecret.spec.template.metadata?.labels || {})),
-                  hide: !sealedSecret.spec.template.metadata?.labels,
+                  name: 'Namespace',
+                  value: String(sealedSecret.metadata.namespace || ''),
                 },
                 {
-                  name: 'Annotations',
-                  value: String(
-                    JSON.stringify(sealedSecret.spec.template.metadata?.annotations || {})
+                  name: 'Scope',
+                  value: String(formatScope(sealedSecret.scope)),
+                },
+                {
+                  name: 'Sync Status',
+                  value: (
+                    <StatusLabel status={sealedSecret.isSynced ? 'success' : 'error'}>
+                      {sealedSecret.isSynced ? 'Synced' : 'Not Synced'}
+                    </StatusLabel>
                   ),
-                  hide: !sealedSecret.spec.template.metadata?.annotations,
+                },
+                {
+                  name: 'Status Message',
+                  value: String(sealedSecret.syncMessage || 'Unknown'),
+                  hide: !sealedSecret.syncCondition,
+                },
+                {
+                  name: 'Age',
+                  value: String(sealedSecret.getAge() || ''),
+                },
+                {
+                  name: 'Created',
+                  value: sealedSecret.metadata.creationTimestamp
+                    ? new Date(sealedSecret.metadata.creationTimestamp).toLocaleString()
+                    : 'Unknown',
                 },
               ]}
             />
           </SectionBox>
-        )}
 
-        <SectionBox title="Resulting Secret">
-          {secret ? (
-            <NameValueTable
-              rows={[
+          <SectionBox title="Encrypted Data">
+            <SimpleTable
+              data={encryptedKeys.map(key => ({
+                key,
+                value: sealedSecret.spec.encryptedData[key],
+              }))}
+              columns={[
                 {
-                  name: 'Status',
-                  value: <StatusLabel status="success">Secret exists</StatusLabel>,
+                  label: 'Key',
+                  getter: (row: any) => row.key,
                 },
                 {
-                  name: 'Keys',
-                  value: String(Object.keys(secret.data || {}).join(', ') || 'None'),
+                  label: 'Encrypted Value',
+                  getter: (row: any) => {
+                    const val = row.value;
+                    return val.length > 40 ? val.substring(0, 40) + '...' : val;
+                  },
                 },
                 {
-                  name: 'Link',
-                  value: (
-                    <Link
-                      routeName="secret"
-                      params={{
-                        namespace: String(secret.metadata.namespace || ''),
-                        name: String(secret.metadata.name || ''),
-                      }}
-                    >
-                      View Secret
-                    </Link>
-                  ),
+                  label: 'Actions',
+                  getter: (row: any) =>
+                    canDecrypt ? (
+                      <Button size="small" onClick={() => setDecryptKey(row.key)}>
+                        Decrypt
+                      </Button>
+                    ) : (
+                      <Button size="small" disabled title="No permission to access Secrets">
+                        Decrypt
+                      </Button>
+                    ),
                 },
               ]}
             />
-          ) : (
-            <Box p={2}>
-              <StatusLabel status="warning">Secret not yet created</StatusLabel>
-              <p>The controller will create the Secret once it processes this SealedSecret.</p>
-            </Box>
+          </SectionBox>
+
+          {sealedSecret.spec.template && (
+            <SectionBox title="Template">
+              <NameValueTable
+                rows={[
+                  {
+                    name: 'Secret Type',
+                    value: String(sealedSecret.spec.template.type || 'Opaque'),
+                  },
+                  {
+                    name: 'Labels',
+                    value: String(
+                      JSON.stringify(sealedSecret.spec.template.metadata?.labels || {})
+                    ),
+                    hide: !sealedSecret.spec.template.metadata?.labels,
+                  },
+                  {
+                    name: 'Annotations',
+                    value: String(
+                      JSON.stringify(sealedSecret.spec.template.metadata?.annotations || {})
+                    ),
+                    hide: !sealedSecret.spec.template.metadata?.annotations,
+                  },
+                ]}
+              />
+            </SectionBox>
           )}
-        </SectionBox>
+
+          <SectionBox title="Resulting Secret">
+            {secret ? (
+              <NameValueTable
+                rows={[
+                  {
+                    name: 'Status',
+                    value: <StatusLabel status="success">Secret exists</StatusLabel>,
+                  },
+                  {
+                    name: 'Keys',
+                    value: String(Object.keys(secret.data || {}).join(', ') || 'None'),
+                  },
+                  {
+                    name: 'Link',
+                    value: (
+                      <Link
+                        routeName="secret"
+                        params={{
+                          namespace: String(secret.metadata.namespace || ''),
+                          name: String(secret.metadata.name || ''),
+                        }}
+                      >
+                        View Secret
+                      </Link>
+                    ),
+                  },
+                ]}
+              />
+            ) : (
+              <Box p={2}>
+                <StatusLabel status="warning">Secret not yet created</StatusLabel>
+                <p>The controller will create the Secret once it processes this SealedSecret.</p>
+              </Box>
+            )}
+          </SectionBox>
         </Box>
 
         {decryptKey && (

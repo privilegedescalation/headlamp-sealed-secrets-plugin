@@ -126,9 +126,7 @@ export function SealedSecretList() {
   // Show error if CRD is not installed
   if (error) {
     return (
-      <SectionBox
-        title="Sealed Secrets"
-      >
+      <SectionBox title="Sealed Secrets">
         <Box p={2}>
           <StatusLabel status="error">Error</StatusLabel>
           <Box mt={2}>
@@ -139,7 +137,11 @@ export function SealedSecretList() {
                   cluster.
                 </p>
                 <p>
-                  Install with: <code>kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml</code>
+                  Install with:{' '}
+                  <code>
+                    kubectl apply -f
+                    https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
+                  </code>
                 </p>
               </>
             ) : (
@@ -153,9 +155,7 @@ export function SealedSecretList() {
 
   return (
     <>
-      <SectionBox
-        title="Sealed Secrets"
-      >
+      <SectionBox title="Sealed Secrets">
         <VersionWarning autoDetect showDetails={false} />
         <SectionFilterHeader title="" noNamespaceFilter={false} actions={actions} />
         <SimpleTable data={sealedSecrets} columns={columns} />

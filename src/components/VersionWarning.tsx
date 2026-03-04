@@ -41,9 +41,7 @@ export function VersionWarning({ autoDetect = true, showDetails = false }: Versi
       } else if (result.ok === false) {
         setDetectedVersion(null);
         // Ensure error is always a string
-        const errorMessage = typeof result.error === 'string'
-          ? result.error
-          : String(result.error);
+        const errorMessage = typeof result.error === 'string' ? result.error : String(result.error);
         setError(errorMessage);
       }
     } catch (e) {
@@ -70,11 +68,14 @@ export function VersionWarning({ autoDetect = true, showDetails = false }: Versi
   if (error) {
     return (
       <Box mb={2}>
-        <Alert severity="error" action={
-          <Button color="inherit" size="small" onClick={detectVersion}>
-            Retry
-          </Button>
-        }>
+        <Alert
+          severity="error"
+          action={
+            <Button color="inherit" size="small" onClick={detectVersion}>
+              Retry
+            </Button>
+          }
+        >
           <strong>API Version Detection Failed</strong>
           <br />
           {String(error)}
@@ -84,7 +85,8 @@ export function VersionWarning({ autoDetect = true, showDetails = false }: Versi
               <br />
               Install Sealed Secrets with:{' '}
               <code style={{ fontSize: '0.875em' }}>
-                kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
+                kubectl apply -f
+                https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
               </code>
               <br />
               Or visit:{' '}

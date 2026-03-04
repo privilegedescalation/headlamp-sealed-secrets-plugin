@@ -83,10 +83,12 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
 
   const handleCreate = async () => {
     // Filter out empty rows
-    const validKeyValues = keyValues.filter(kv => kv.key || kv.value).map(kv => ({
-      key: kv.key,
-      value: kv.value,
-    }));
+    const validKeyValues = keyValues
+      .filter(kv => kv.key || kv.value)
+      .map(kv => ({
+        key: kv.key,
+        value: kv.value,
+      }));
 
     // Use the encryption hook
     const result = await encrypt({
@@ -232,7 +234,11 @@ export function EncryptDialog({ open, onClose }: EncryptDialogProps) {
                 disabled={keyValues.length === 1}
                 color="error"
                 aria-label={`Remove key-value pair ${index + 1}`}
-                title={keyValues.length === 1 ? 'At least one key-value pair is required' : `Remove key-value pair ${index + 1}`}
+                title={
+                  keyValues.length === 1
+                    ? 'At least one key-value pair is required'
+                    : `Remove key-value pair ${index + 1}`
+                }
               >
                 <Icon icon="mdi:delete" />
               </IconButton>

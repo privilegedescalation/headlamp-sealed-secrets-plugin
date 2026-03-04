@@ -192,8 +192,8 @@ export class GenericErrorBoundary extends BaseErrorBoundary {
             Something Went Wrong
           </Typography>
           <Typography variant="body2" paragraph>
-            An unexpected error occurred. Please try reloading the page or contact your administrator
-            if the problem persists.
+            An unexpected error occurred. Please try reloading the page or contact your
+            administrator if the problem persists.
           </Typography>
           {this.state.error && (
             <Typography
