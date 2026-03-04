@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![GitHub release](https://img.shields.io/github/v/release/privilegedescalation/headlamp-sealed-secrets-plugin)](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases)
 [![GitHub issues](https://img.shields.io/github/issues/privilegedescalation/headlamp-sealed-secrets-plugin)](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/issues)
-[![Test Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](headlamp-sealed-secrets/)
+[![Test Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](docs/development/testing.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)](https://www.typescriptlang.org/)
 
 A comprehensive [Headlamp](https://headlamp.dev) plugin for managing [Bitnami Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) with **client-side encryption** and **RBAC-aware UI**.
@@ -31,21 +31,23 @@ Browse the Headlamp Plugin Manager (Settings → Plugins → Catalog) and instal
 
 #### Option 2: Manual Tarball Install
 
-```bash
-# 1. Download and extract plugin
-curl -LO https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v0.2.4/headlamp-sealed-secrets-0.2.4.tar.gz
-tar -xzf headlamp-sealed-secrets-0.2.4.tar.gz -C ~/Library/Application\ Support/Headlamp/plugins/
+Download the latest tarball from the [Releases page](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases), then extract it into your Headlamp plugins directory:
 
-# 2. Restart Headlamp
-# macOS: Cmd+Q then reopen
-# Linux: killall headlamp && headlamp
+```bash
+# macOS
+tar -xzf sealed-secrets-*.tar.gz -C ~/Library/Application\ Support/Headlamp/plugins/
+
+# Linux
+tar -xzf sealed-secrets-*.tar.gz -C ~/.config/Headlamp/plugins/
+
+# Restart Headlamp after installing
 ```
 
 #### Option 3: Build from Source
 
 ```bash
 git clone https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
-cd headlamp-sealed-secrets-plugin/headlamp-sealed-secrets
+cd headlamp-sealed-secrets-plugin
 npm install
 npm run build
 npx @kinvolk/headlamp-plugin extract . /headlamp/plugins
@@ -76,15 +78,11 @@ kubectl get secret <your-secret-name> -n <namespace>
 - **[Quick Start Tutorial](docs/getting-started/quick-start.md)** - Create your first sealed secret
 
 ### User Guides
-- **[Creating Secrets](docs/user-guide/creating-secrets.md)** - Encrypt and create sealed secrets
-- **[Managing Keys](docs/user-guide/managing-keys.md)** - View and download sealing certificates
 - **[Scopes Explained](docs/user-guide/scopes-explained.md)** - Strict vs namespace-wide vs cluster-wide
 - **[RBAC Permissions](docs/user-guide/rbac-permissions.md)** - Configure access control
 
 ### Tutorials
 - **[CI/CD Integration](docs/tutorials/ci-cd-integration.md)** - GitHub Actions, GitLab CI, Jenkins
-- **[Multi-Cluster Setup](docs/tutorials/multi-cluster-setup.md)** - Manage secrets across clusters
-- **[Secret Rotation](docs/tutorials/secret-rotation.md)** - Rotate secrets and sealing keys safely
 
 ### Reference
 - **[Troubleshooting](docs/troubleshooting/)** - Common issues and solutions
@@ -181,7 +179,7 @@ Plaintext values never leave your browser.
 | Browser XSS | Headlamp CSP policies | ⚠️ Standard web security |
 | Supply chain | Package locks, dependabot | ⚠️ Ongoing monitoring |
 
-See: [Security Hardening Guide](docs/deployment/security-hardening.md) | [ADR 003: Client-Side Encryption](docs/architecture/adr/003-client-side-crypto.md)
+See: [ADR 003: Client-Side Encryption](docs/architecture/adr/003-client-side-crypto.md)
 
 ## Technical Details
 
@@ -189,11 +187,8 @@ See: [Security Hardening Guide](docs/deployment/security-hardening.md) | [ADR 00
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Bundle Size** | 359.73 kB (98.79 kB gzipped) | Optimized with tree-shaking |
-| **Test Coverage** | 92% (36/39 passing) | Unit + integration tests |
+| **Test Coverage** | 92% | Unit + integration tests |
 | **TypeScript** | 5.6.2 strict mode | Zero type errors |
-| **Lines of Code** | 4,767 TypeScript/React | Well-documented with JSDoc |
-| **Build Time** | ~4 seconds | Fast development iteration |
 | **Dependencies** | node-forge (crypto) | Minimal, audited dependencies |
 
 ### Technology Stack
@@ -223,7 +218,7 @@ We welcome contributions.
 ```bash
 # 1. Fork and clone
 git clone https://github.com/YOUR_USERNAME/headlamp-sealed-secrets-plugin
-cd headlamp-sealed-secrets-plugin/headlamp-sealed-secrets
+cd headlamp-sealed-secrets-plugin
 
 # 2. Install dependencies
 npm install
@@ -265,7 +260,7 @@ See: [Development Workflow](docs/development/workflow.md) | [Testing Guide](docs
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
 
-**Latest release (v0.2.4)**: Type-safe error handling, RBAC integration, accessibility improvements, and 92% test coverage.
+See [CHANGELOG.md](CHANGELOG.md) for details on each release.
 
 ## Issues & Support
 
@@ -292,13 +287,13 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 | Issue | Quick Fix | Guide |
 |-------|-----------|-------|
 | Plugin not loading | Check installation path | [Installation](docs/getting-started/installation.md) |
-| Controller not found | Install controller | [Controller Issues](docs/troubleshooting/controller-issues.md) |
-| Permission denied | Configure RBAC | [Permission Errors](docs/troubleshooting/permission-errors.md) |
-| Encryption fails | Check certificate | [Encryption Failures](docs/troubleshooting/encryption-failures.md) |
+| Controller not found | Install controller | [Troubleshooting](docs/troubleshooting/) |
+| Permission denied | Configure RBAC | [RBAC Permissions](docs/user-guide/rbac-permissions.md) |
+| Encryption fails | Check certificate | [Troubleshooting](docs/troubleshooting/) |
 
 ## License
 
-Apache License 2.0 - see [LICENSE](headlamp-sealed-secrets/LICENSE) for details.
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
 
 ## Credits
 

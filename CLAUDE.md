@@ -68,7 +68,7 @@ Uses custom hooks (`hooks/`) and a utility library (`lib/`) instead of a single 
 
 - Functional React components only — no class components
 - All imports from `@kinvolk/headlamp-plugin/lib` and `@kinvolk/headlamp-plugin/lib/CommonComponents`
-- No additional UI libraries (no MUI direct imports, no Ant Design, etc.)
+- MUI (`@mui/material`) is available via Headlamp's bundled dependencies — no other UI libraries (no Ant Design, etc.)
 - TypeScript strict mode — no `any`, use `unknown` + type guards at API boundaries
 - Tests: vitest + @testing-library/react, mock with `vi.mock('@kinvolk/headlamp-plugin/lib', ...)`
 - `vitest.setup.ts` provides a spec-compliant `localStorage` shim for Node 22+ compatibility

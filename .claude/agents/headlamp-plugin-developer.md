@@ -311,7 +311,7 @@ const inputStyle = {
 
 1. **Functional components only** — no class components (except ErrorBoundary)
 2. **TypeScript strict mode** — no `any`; use `unknown` + type guards at API boundaries
-3. **Only Headlamp CommonComponents** — no direct MUI, Ant Design, or other UI library imports
+3. **Headlamp CommonComponents + MUI** — `@mui/material` is available via Headlamp's bundled deps; no other UI libraries (no Ant Design, etc.)
 4. **Inline CSS only** — `style={{}}` props, CSS variables (`var(--mui-palette-*)`) for theming
 5. **Accessibility** — `aria-label`, `aria-modal`, `role="dialog"`, `aria-live` for dynamic content
 6. **Cancellation safety** — async effects must check a `cancelled` flag
