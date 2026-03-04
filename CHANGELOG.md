@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.21] - 2026-03-04
+
+### Added
+- Claude Code agent definitions for Headlamp plugin development assistance
+
+### Fixed
+- Hardcoded color in SealingKeysView now uses CSS variable for dark mode support
+- Missing async cancellation in SealedSecretDetail useEffect
+- Accessibility gaps: added aria-labels to detail panel buttons and dialogs
+- Replaced `any` types with proper typed row interfaces in SimpleTable getters
+- Corrected broken links, stale versions, and dead references across documentation
+- Fixed LICENSE and README links in README.md
+- Fixed appVersion mismatch in artifacthub-pkg.yml
+- Removed dead documentation links from docs/README.md
+
 ## [0.2.4] - 2026-02-12
 
 ### Fixed
@@ -110,7 +126,8 @@ Version 0.2.3 was published but with checksum mismatch on Artifact Hub. Supersed
 - Dependencies: node-forge for cryptography
 - Compatible with Headlamp v0.13.0+
 
-[Unreleased]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.21...HEAD
+[0.2.21]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.20...v0.2.21
 [0.1.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.1.0
 [0.2.4]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.4
 [0.2.3]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.3
