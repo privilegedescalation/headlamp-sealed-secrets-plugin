@@ -26,6 +26,8 @@ Each ADR follows this structure:
 | [003](003-client-side-crypto.md) | Client-Side Encryption | Accepted | 2026-02-11 |
 | [004](004-rbac-integration.md) | RBAC-Aware UI | Accepted | 2026-02-11 |
 | [005](005-react-hooks-extraction.md) | Custom React Hooks | Accepted | 2026-02-12 |
+| [006](006-dual-error-boundaries.md) | Error Boundary with Dual Variants | Accepted | 2026-03-05 |
+| [007](007-hooks-vs-context.md) | Custom Hooks Architecture vs Data Context | Accepted | 2026-03-05 |
 
 ## Creating New ADRs
 
