@@ -20,6 +20,7 @@ keywords:
   - security
 annotations:
   headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v0.2.21/sealed-secrets-0.2.21.tar.gz"
+  headlamp/plugin/archive-checksum: ""
   headlamp/plugin/version-compat: ">=0.13.0"
   headlamp/plugin/distro-compat: "desktop,in-cluster,web,docker-desktop"
 links:
