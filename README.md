@@ -25,33 +25,7 @@ A comprehensive [Headlamp](https://headlamp.dev) plugin for managing [Bitnami Se
 
 ### Installation
 
-#### Option 1: Headlamp Plugin Manager (Recommended)
-
 Browse the Headlamp Plugin Manager (Settings → Plugins → Catalog) and install **sealed-secrets** directly.
-
-#### Option 2: Manual Tarball Install
-
-Download the latest tarball from the [Releases page](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases), then extract it into your Headlamp plugins directory:
-
-```bash
-# macOS
-tar -xzf sealed-secrets-*.tar.gz -C ~/Library/Application\ Support/Headlamp/plugins/
-
-# Linux
-tar -xzf sealed-secrets-*.tar.gz -C ~/.config/Headlamp/plugins/
-
-# Restart Headlamp after installing
-```
-
-#### Option 3: Build from Source
-
-```bash
-git clone https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin.git
-cd headlamp-sealed-secrets-plugin
-npm install
-npm run build
-npx @kinvolk/headlamp-plugin extract . /headlamp/plugins
-```
 
 ### First Secret
 
