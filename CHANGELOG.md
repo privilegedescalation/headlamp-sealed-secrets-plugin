@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-03-24
+
+### Added
+- Explicit `vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`, `react`, and `react-dom` devDependencies so tests run reliably without relying on transitive hoisting
+
+### Changed
+- Bump to v1.0.0 — stable public API, comprehensive test coverage, ArtifactHub-only installation
+
+### Fixed
+- Removed `install-plugin.sh` custom install script in compliance with ArtifactHub-only installation policy
+
+## [0.2.24] - 2026-03-19
+
+### Fixed
+- Added npm overrides for `tar` (>=7.5.11) and `undici` (>=7.24.3) to resolve security advisories
+- Added `pull-requests: write` permission to release workflow to unblock PR creation
+
+### Changed
+- Added ArtifactHub-only installation policy (INSTALLATION_POLICY.md)
+- Removed manual install instructions from README
+- Dependency bumps: `tar` 7.5.7→7.5.11, `undici` 7.14.0→7.24.4, `rollup` 4.46.3→4.59.0, `minimatch` 3.1.2→3.1.5, `qs` 6.14.1→6.15.0, `storybook` 9.1.17→9.1.20
+
+## [0.2.23] - 2026-03-09
+
+### Changed
+- Internal release-pipeline stabilization (re-release of v0.2.22 fixes)
+
+## [0.2.22] - 2026-03-09
+
+### Added
+- Architecture decision records for error boundaries and hooks architecture
+
+### Fixed
+- Removed remaining `any` types, dead code, and unused exports; added comprehensive tests
+- Added missing `archive-checksum` annotation to `artifacthub-pkg.yml`
+- Upstream `appVersion` tracking in release workflow (automatically syncs sealed-secrets controller version)
+- Package renamed to `headlamp-sealed-secrets` on ArtifactHub for discoverability
+- Added `FUNDING.yml` and Apache-2.0 `LICENSE` file
+
+### Changed
+- Enhanced Renovate configuration
+
 ## [0.2.21] - 2026-03-04
 
 ### Added
@@ -126,11 +168,15 @@ Version 0.2.3 was published but with checksum mismatch on Artifact Hub. Supersed
 - Dependencies: node-forge for cryptography
 - Compatible with Headlamp v0.13.0+
 
-[Unreleased]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.21...HEAD
+[Unreleased]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.24...v1.0.0
+[0.2.24]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.23...v0.2.24
+[0.2.23]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.22...v0.2.23
+[0.2.22]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.21...v0.2.22
 [0.2.21]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/compare/v0.2.20...v0.2.21
-[0.1.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.1.0
 [0.2.4]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.4
 [0.2.3]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.3
 [0.2.2]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.2
 [0.2.1]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.1
 [0.2.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.2.0
+[0.1.0]: https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 # Artifact Hub package metadata file
 # https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml
-version: "0.2.24"
+version: "1.0.0"
 name: headlamp-sealed-secrets
 displayName: Sealed Secrets
 createdAt: "2026-02-12T00:00:00Z"
@@ -19,8 +19,8 @@ keywords:
   - encryption
   - security
 annotations:
-  headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v0.2.24/sealed-secrets-0.2.24.tar.gz"
-  headlamp/plugin/archive-checksum: sha256:c17cf3bed967062c3d364092af4637026f1e2628774f4c6242e0309d78133a25
+  headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v1.0.0/sealed-secrets-1.0.0.tar.gz"
+  headlamp/plugin/archive-checksum: sha256:TBD-set-by-release-workflow
   headlamp/plugin/version-compat: ">=0.13.0"
   headlamp/plugin/distro-compat: "desktop,in-cluster,web,docker-desktop"
 links:
@@ -59,24 +59,12 @@ install: |
 
   For detailed usage instructions, see the [README](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/main/README.md).
 changes:
-  - kind: added
-    description: SealedSecret list view with RBAC-aware actions
-  - kind: added
-    description: Encrypt dialog with client-side encryption using fetched controller certificate
-  - kind: added
-    description: Decrypt dialog for viewing secret data
-  - kind: added
-    description: SealingKeys view with key rotation and certificate expiry warnings
-  - kind: added
-    description: Controller health monitoring panel
-  - kind: added
-    description: Namespace-scoped and cluster-scoped sealing support
-  - kind: added
-    description: Settings page for controller URL configuration
-  - kind: added
-    description: Secret rotation support
   - kind: changed
-    description: Stable public API with hooks (useControllerHealth, usePermissions, useSealedSecretEncryption) and documented interfaces
+    description: "Bump to v1.0.0 — stable public release with comprehensive tests, ArtifactHub-only installation, and full RBAC-aware UI"
+  - kind: added
+    description: Explicit vitest and @testing-library devDependencies for reliable test execution
+  - kind: fixed
+    description: Removed install-plugin.sh custom install script (ArtifactHub-only policy)
 maintainers:
   - name: privilegedescalation
     email: privilegedescalation@users.noreply.github.com
