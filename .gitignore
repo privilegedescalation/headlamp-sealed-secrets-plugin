@@ -23,3 +23,9 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# E2E
+.env.e2e
+e2e/.auth/state.json
+playwright-report/
+test-results/
