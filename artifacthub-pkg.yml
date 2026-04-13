@@ -1,6 +1,6 @@
 # Artifact Hub package metadata file
 # https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml
-version: "1.0.0"
+version: "1.0.1"
 name: headlamp-sealed-secrets
 displayName: Sealed Secrets
 createdAt: "2026-02-12T00:00:00Z"
@@ -19,8 +19,8 @@ keywords:
   - encryption
   - security
 annotations:
-  headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v1.0.0/sealed-secrets-1.0.0.tar.gz"
-  headlamp/plugin/archive-checksum: sha256:d387f156b7bf5628073116ef1e406d8038cf60eabefe46e220a0db2d67f5530a
+  headlamp/plugin/archive-url: "https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/releases/download/v1.0.1/sealed-secrets-1.0.1.tar.gz"
+  headlamp/plugin/archive-checksum: ""
   headlamp/plugin/version-compat: ">=0.13.0"
   headlamp/plugin/distro-compat: "desktop,in-cluster,web,docker-desktop"
 links:
@@ -59,6 +59,8 @@ install: |
 
   For detailed usage instructions, see the [README](https://github.com/privilegedescalation/headlamp-sealed-secrets-plugin/blob/main/README.md).
 changes:
+  - kind: fixed
+    description: "Fix ArtifactHub checksum — release workflow now computes checksums after rebuilding tarball"
   - kind: changed
     description: "Bump to v1.0.0 — stable public release with comprehensive tests, ArtifactHub-only installation, and full RBAC-aware UI"
   - kind: added
