@@ -23,13 +23,13 @@ Plugin shows "Controller not found" or health status is unhealthy.
 
 ```bash
 # Check if controller exists
-kubectl get deployment -n kube-system sealed-secrets-controller
+kubectl get deployment -n headlamp sealed-secrets-controller
 
 # Check service
-kubectl get svc -n kube-system sealed-secrets-controller
+kubectl get svc -n headlamp sealed-secrets-controller
 
 # Check pods
-kubectl get pods -n kube-system -l name=sealed-secrets-controller
+kubectl get pods -n headlamp -l name=sealed-secrets-controller
 ```
 
 ### Solutions
@@ -43,10 +43,10 @@ Install the controller:
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Wait for deployment
-kubectl wait --for=condition=available deployment/sealed-secrets-controller -n kube-system --timeout=60s
+kubectl wait --for=condition=available deployment/sealed-secrets-controller -n headlamp --timeout=60s
 
 # Verify
-kubectl get pods -n kube-system -l name=sealed-secrets-controller
+kubectl get pods -n headlamp -l name=sealed-secrets-controller
 ```
 
 #### Wrong Namespace
@@ -85,13 +85,13 @@ Controller pod shows `Pending`, `ContainerCreating`, or `ImagePullBackOff`.
 
 ```bash
 # Check pod status
-kubectl get pods -n kube-system -l name=sealed-secrets-controller
+kubectl get pods -n headlamp -l name=sealed-secrets-controller
 
 # Get detailed status
-kubectl describe pod -n kube-system -l name=sealed-secrets-controller
+kubectl describe pod -n headlamp -l name=sealed-secrets-controller
 
 # Check events
-kubectl get events -n kube-system --sort-by='.lastTimestamp' | grep sealed-secrets
+kubectl get events -n headlamp --sort-by='.lastTimestamp' | grep sealed-secrets
 ```
 
 ### Common Causes
@@ -102,7 +102,7 @@ kubectl get events -n kube-system --sort-by='.lastTimestamp' | grep sealed-secre
 
 **Check**:
 ```bash
-kubectl describe pod -n kube-system -l name=sealed-secrets-controller | grep -A 5 "Events:"
+kubectl describe pod -n headlamp -l name=sealed-secrets-controller | grep -A 5 "Events:"
 ```
 
 **Solutions**:
@@ -114,17 +114,17 @@ kubectl create secret docker-registry regcred \
   --docker-server=<registry> \
   --docker-username=<username> \
   --docker-password=<password> \
-  -n kube-system
+  -n headlamp
 
 # Update deployment
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '{"spec":{"template":{"spec":{"imagePullSecrets":[{"name":"regcred"}]}}}}'
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '{"spec":{"template":{"spec":{"imagePullSecrets":[{"name":"regcred"}]}}}}'
 ```
 
 **Network issues**: Check cluster can reach `quay.io` or your registry.
 
 **Wrong image tag**: Verify image exists:
 ```bash
-kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
+kubectl get deployment -n headlamp sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
 ```
 
 #### Insufficient Resources
@@ -133,13 +133,13 @@ kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.s
 
 **Check**:
 ```bash
-kubectl describe pod -n kube-system -l name=sealed-secrets-controller | grep -A 5 "FailedScheduling"
+kubectl describe pod -n headlamp -l name=sealed-secrets-controller | grep -A 5 "FailedScheduling"
 ```
 
 **Solution**: Lower resource requests or add nodes:
 ```bash
 # Lower requests (not recommended for production)
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '
 {
   "spec": {
     "template": {
@@ -165,7 +165,7 @@ kubectl patch deployment sealed-secrets-controller -n kube-system -p '
 
 **Check**:
 ```bash
-kubectl get pvc -n kube-system
+kubectl get pvc -n headlamp
 ```
 
 **Solution**: Ensure StorageClass exists and volumes are available.
@@ -182,13 +182,13 @@ Controller pod shows `CrashLoopBackOff` or restarts frequently.
 
 ```bash
 # Check restart count
-kubectl get pods -n kube-system -l name=sealed-secrets-controller
+kubectl get pods -n headlamp -l name=sealed-secrets-controller
 
 # View recent logs
-kubectl logs -n kube-system -l name=sealed-secrets-controller --tail=100
+kubectl logs -n headlamp -l name=sealed-secrets-controller --tail=100
 
 # View previous crash logs
-kubectl logs -n kube-system -l name=sealed-secrets-controller --previous
+kubectl logs -n headlamp -l name=sealed-secrets-controller --previous
 ```
 
 ### Common Causes
@@ -203,16 +203,16 @@ Error loading sealed secrets key: invalid PEM data
 **Solution**:
 ```bash
 # Backup existing key (if valid)
-kubectl get secret -n kube-system sealed-secrets-key -o yaml > backup.yaml
+kubectl get secret -n headlamp sealed-secrets-key -o yaml > backup.yaml
 
 # Delete corrupted key
-kubectl delete secret -n kube-system sealed-secrets-key
+kubectl delete secret -n headlamp sealed-secrets-key
 
 # Restart controller to generate new key
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 
 # Wait for new key
-kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-controller --timeout=60s
+kubectl wait --for=condition=ready pod -n headlamp -l name=sealed-secrets-controller --timeout=60s
 ```
 
 **Warning**: This generates a new key. Existing SealedSecrets will still work but cannot be modified.
@@ -227,10 +227,10 @@ Multiple certificates found, unable to determine active key
 **Solution**:
 ```bash
 # List all sealing keys
-kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key
+kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
 
 # Remove old keys (keep backup!)
-kubectl delete secret -n kube-system <old-key-name>
+kubectl delete secret -n headlamp <old-key-name>
 ```
 
 #### Memory Issues
@@ -242,12 +242,12 @@ OOMKilled
 
 **Check**:
 ```bash
-kubectl describe pod -n kube-system -l name=sealed-secrets-controller | grep -A 5 "Last State"
+kubectl describe pod -n headlamp -l name=sealed-secrets-controller | grep -A 5 "Last State"
 ```
 
 **Solution**: Increase memory limits:
 ```bash
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '
 {
   "spec": {
     "template": {
@@ -298,7 +298,7 @@ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/downloa
 **Check**:
 ```bash
 # Get certificate expiry
-kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | \
+kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | \
   base64 -d | \
   openssl x509 -noout -enddate
 ```
@@ -307,12 +307,12 @@ kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.cr
 
 ```bash
 # Generate new key (keeps old for decryption)
-kubectl annotate secret -n kube-system sealed-secrets-key \
+kubectl annotate secret -n headlamp sealed-secrets-key \
   sealedsecrets.bitnami.com/sealed-secrets-key-rotation=rotate
 
 # Or delete and recreate
-kubectl delete secret -n kube-system sealed-secrets-key
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl delete secret -n headlamp sealed-secrets-key
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 ```
 
 ### Multiple Certificates
@@ -322,10 +322,10 @@ kubectl rollout restart deployment -n kube-system sealed-secrets-controller
 **Check**:
 ```bash
 # List all certificates
-kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key
+kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
 
 # View details
-kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml
+kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml
 ```
 
 **Solution**: Controller uses newest valid certificate. This is normal after key rotation.
@@ -333,7 +333,7 @@ kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-k
 To clean up old keys (after backup):
 ```bash
 # Keep newest 2 keys, delete older ones
-kubectl delete secret -n kube-system <old-key-name>
+kubectl delete secret -n headlamp <old-key-name>
 ```
 
 ### Certificate Not Found
@@ -342,13 +342,13 @@ kubectl delete secret -n kube-system <old-key-name>
 
 **Check**:
 ```bash
-kubectl get secret -n kube-system sealed-secrets-key
+kubectl get secret -n headlamp sealed-secrets-key
 ```
 
 **Solution**: Restart controller to generate:
 ```bash
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
-kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-controller --timeout=60s
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
+kubectl wait --for=condition=ready pod -n headlamp -l name=sealed-secrets-controller --timeout=60s
 ```
 
 ---
@@ -362,10 +362,10 @@ kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-con
 **Diagnosis**:
 ```bash
 # Check controller CPU/memory usage
-kubectl top pod -n kube-system -l name=sealed-secrets-controller
+kubectl top pod -n headlamp -l name=sealed-secrets-controller
 
 # Check events
-kubectl get events -n kube-system --sort-by='.lastTimestamp' | grep sealed-secrets
+kubectl get events -n headlamp --sort-by='.lastTimestamp' | grep sealed-secrets
 ```
 
 **Solutions**:
@@ -373,7 +373,7 @@ kubectl get events -n kube-system --sort-by='.lastTimestamp' | grep sealed-secre
 #### Increase Resources
 
 ```bash
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '
 {
   "spec": {
     "template": {
@@ -401,7 +401,7 @@ kubectl patch deployment sealed-secrets-controller -n kube-system -p '
 
 ```bash
 # Get node
-kubectl get pod -n kube-system -l name=sealed-secrets-controller -o wide
+kubectl get pod -n headlamp -l name=sealed-secrets-controller -o wide
 
 # Check node load
 kubectl top node <node-name>
@@ -429,22 +429,22 @@ Consider node affinity if node is overloaded.
 **Diagnosis**:
 ```bash
 # Check deployment history
-kubectl rollout history deployment -n kube-system sealed-secrets-controller
+kubectl rollout history deployment -n headlamp sealed-secrets-controller
 
 # Check current image
-kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
+kubectl get deployment -n headlamp sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
 ```
 
 **Solution**: Rollback and retry:
 ```bash
 # Rollback to previous version
-kubectl rollout undo deployment -n kube-system sealed-secrets-controller
+kubectl rollout undo deployment -n headlamp sealed-secrets-controller
 
 # Wait for rollback
-kubectl rollout status deployment -n kube-system sealed-secrets-controller
+kubectl rollout status deployment -n headlamp sealed-secrets-controller
 
 # Check logs
-kubectl logs -n kube-system -l name=sealed-secrets-controller
+kubectl logs -n headlamp -l name=sealed-secrets-controller
 ```
 
 ### Version Compatibility
@@ -460,13 +460,13 @@ kubectl logs -n kube-system -l name=sealed-secrets-controller
 **Upgrade controller**:
 ```bash
 # Backup sealing keys first!
-kubectl get secret -n kube-system sealed-secrets-key -o yaml > sealed-secrets-backup.yaml
+kubectl get secret -n headlamp sealed-secrets-key -o yaml > sealed-secrets-backup.yaml
 
 # Upgrade
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Verify
-kubectl rollout status deployment -n kube-system sealed-secrets-controller
+kubectl rollout status deployment -n headlamp sealed-secrets-controller
 ```
 
 ### Lost Sealing Keys After Upgrade
@@ -483,7 +483,7 @@ If you have backup:
 kubectl apply -f sealed-secrets-backup.yaml
 
 # Restart controller
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 ```
 
 If no backup, keys are **permanently lost**. You must:
@@ -499,7 +499,7 @@ If no backup, keys are **permanently lost**. You must:
 
 ```bash
 # Add debug flag to controller
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '
 {
   "spec": {
     "template": {
@@ -514,14 +514,14 @@ kubectl patch deployment sealed-secrets-controller -n kube-system -p '
 }'
 
 # View debug logs
-kubectl logs -n kube-system -l name=sealed-secrets-controller -f
+kubectl logs -n headlamp -l name=sealed-secrets-controller -f
 ```
 
 ### Port-Forward for Testing
 
 ```bash
 # Forward controller port locally
-kubectl port-forward -n kube-system service/sealed-secrets-controller 8080:8080
+kubectl port-forward -n headlamp service/sealed-secrets-controller 8080:8080
 
 # Test certificate endpoint
 curl http://localhost:8080/v1/cert.pem
@@ -536,7 +536,7 @@ If Prometheus is installed:
 
 ```bash
 # Enable metrics
-kubectl patch deployment sealed-secrets-controller -n kube-system -p '
+kubectl patch deployment sealed-secrets-controller -n headlamp -p '
 {
   "spec": {
     "template": {
@@ -551,7 +551,7 @@ kubectl patch deployment sealed-secrets-controller -n kube-system -p '
 }'
 
 # Access metrics
-kubectl port-forward -n kube-system service/sealed-secrets-controller 8081:8081
+kubectl port-forward -n headlamp service/sealed-secrets-controller 8081:8081
 curl http://localhost:8081/metrics
 ```
 
@@ -564,9 +564,9 @@ If issues persist:
 1. **Gather diagnostic info**:
    ```bash
    # Create diagnostic bundle
-   kubectl get all -n kube-system -l name=sealed-secrets-controller -o yaml > controller-diagnostics.yaml
-   kubectl logs -n kube-system -l name=sealed-secrets-controller --tail=500 > controller-logs.txt
-   kubectl describe deployment -n kube-system sealed-secrets-controller > controller-describe.txt
+   kubectl get all -n headlamp -l name=sealed-secrets-controller -o yaml > controller-diagnostics.yaml
+   kubectl logs -n headlamp -l name=sealed-secrets-controller --tail=500 > controller-logs.txt
+   kubectl describe deployment -n headlamp sealed-secrets-controller > controller-describe.txt
    ```
 
 2. **Check Sealed Secrets project**:

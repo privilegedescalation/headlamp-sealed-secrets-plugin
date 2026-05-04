@@ -19,7 +19,7 @@ Before troubleshooting, understand how encryption works:
 
 ```
 1. Plugin fetches public certificate from controller
-   GET /api/v1/namespaces/kube-system/services/sealed-secrets-controller:http/proxy/v1/cert.pem
+   GET /api/v1/namespaces/headlamp/services/sealed-secrets-controller:http/proxy/v1/cert.pem
 
 2. Plugin validates certificate (PEM format, expiry, fingerprint)
 
@@ -55,10 +55,10 @@ Failed to fetch certificate: Network error
 
 ```bash
 # 1. Check controller is running
-kubectl get pods -n kube-system -l name=sealed-secrets-controller
+kubectl get pods -n headlamp -l name=sealed-secrets-controller
 
 # 2. Test certificate endpoint directly
-kubectl port-forward -n kube-system service/sealed-secrets-controller 8080:8080
+kubectl port-forward -n headlamp service/sealed-secrets-controller 8080:8080
 # In another terminal:
 curl http://localhost:8080/v1/cert.pem
 ```
@@ -70,16 +70,16 @@ curl http://localhost:8080/v1/cert.pem
 **Certificate endpoint not responding**:
 ```bash
 # Check controller logs
-kubectl logs -n kube-system -l name=sealed-secrets-controller --tail=50
+kubectl logs -n headlamp -l name=sealed-secrets-controller --tail=50
 
 # Restart controller
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 ```
 
 **RBAC permission denied**:
 ```bash
 # Check service access permission
-kubectl auth can-i get services/sealed-secrets-controller -n kube-system
+kubectl auth can-i get services/sealed-secrets-controller -n headlamp
 
 # If no, apply RBAC (requires cluster-admin):
 kubectl apply -f - <<EOF
@@ -121,7 +121,7 @@ Encryption failed: Certificate expired on 2025-01-15T10:30:00Z
 
 ```bash
 # Check certificate expiry
-kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | \
+kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | \
   base64 -d | \
   openssl x509 -noout -dates
 
@@ -136,19 +136,19 @@ Rotate sealing keys (see [Secret Rotation Tutorial](../tutorials/secret-rotation
 
 ```bash
 # Option 1: Delete old key (generates new automatically)
-kubectl delete secret -n kube-system sealed-secrets-key
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl delete secret -n headlamp sealed-secrets-key
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 
 # Option 2: Annotate for rotation (keeps old for decryption)
-kubectl annotate secret -n kube-system sealed-secrets-key \
+kubectl annotate secret -n headlamp sealed-secrets-key \
   sealedsecrets.bitnami.com/sealed-secrets-key-rotation=rotate
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 
 # Wait for new key
-kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-controller --timeout=60s
+kubectl wait --for=condition=ready pod -n headlamp -l name=sealed-secrets-controller --timeout=60s
 
 # Verify new certificate
-kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key
+kubectl get secret -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
 ```
 
 **Warning**: After key rotation:
@@ -168,7 +168,7 @@ Encryption failed: Certificate is not valid PEM format
 
 ```bash
 # Fetch and validate certificate
-kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d > cert.pem
+kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d > cert.pem
 
 # Should start with:
 # -----BEGIN CERTIFICATE-----
@@ -183,14 +183,14 @@ cat cert.pem
 **Corrupted certificate**:
 ```bash
 # Regenerate certificate
-kubectl delete secret -n kube-system sealed-secrets-key
-kubectl rollout restart deployment -n kube-system sealed-secrets-controller
+kubectl delete secret -n headlamp sealed-secrets-key
+kubectl rollout restart deployment -n headlamp sealed-secrets-controller
 ```
 
 **Wrong secret**: Ensure you're using correct secret:
 ```bash
 # List all sealing keys
-kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key
+kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
 
 # Should show sealed-secrets-key
 ```
@@ -213,7 +213,7 @@ Plan key rotation before expiry:
 1. **Schedule maintenance window**
 2. **Backup existing keys**:
    ```bash
-   kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > sealing-keys-backup.yaml
+   kubectl get secret -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > sealing-keys-backup.yaml
    ```
 3. **Rotate keys**: See [Secret Rotation Tutorial](../tutorials/secret-rotation.md)
 4. **Recreate SealedSecrets** if needed
@@ -485,10 +485,10 @@ Failed to fetch certificate: Request timeout after 30000ms
 kubectl cluster-info
 
 # Test service endpoint
-kubectl get svc -n kube-system sealed-secrets-controller
+kubectl get svc -n headlamp sealed-secrets-controller
 
 # Test with curl
-kubectl port-forward -n kube-system service/sealed-secrets-controller 8080:8080
+kubectl port-forward -n headlamp service/sealed-secrets-controller 8080:8080
 curl -m 5 http://localhost:8080/v1/cert.pem
 ```
 
@@ -550,7 +550,7 @@ Test encryption manually:
 
 ```javascript
 // In browser console
-const cert = await fetch('/api/v1/namespaces/kube-system/services/sealed-secrets-controller:http/proxy/v1/cert.pem')
+const cert = await fetch('/api/v1/namespaces/headlamp/services/sealed-secrets-controller:http/proxy/v1/cert.pem')
   .then(r => r.text());
 
 console.log('Certificate:', cert);
@@ -587,7 +587,7 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 # Test encryption
 echo -n mysecretvalue | kubeseal \
-  --controller-namespace=kube-system \
+  --controller-namespace=headlamp \
   --controller-name=sealed-secrets-controller \
   --format=yaml \
   --name=my-secret \
@@ -621,10 +621,10 @@ If encryption still fails:
 1. **Gather diagnostics**:
    ```bash
    # Controller version
-   kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
+   kubectl get deployment -n headlamp sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
 
    # Certificate validity
-   kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -text
+   kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -text
 
    # Plugin version (in Headlamp UI)
    Settings → Sealed Secrets → About
