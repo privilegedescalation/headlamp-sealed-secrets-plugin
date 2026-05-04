@@ -70,7 +70,7 @@ Key dependencies with security implications:
 - **node-forge**: Used for client-side encryption of secret values with the cluster's sealing certificate. Keep this dependency up to date.
 - **@kinvolk/headlamp-plugin**: Peer dependency providing the Kubernetes API proxy. Update by upgrading your Headlamp installation.
 
-The project uses `npm audit` and Dependabot to monitor for known vulnerabilities.
+The project uses `npm audit` and Renovate to monitor for known vulnerabilities.
 
 ## Contact
 

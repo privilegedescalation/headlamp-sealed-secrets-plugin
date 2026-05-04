@@ -349,7 +349,7 @@ Added type safety:
 
 **Supply Chain**:
 - Risk: Compromised node-forge dependency
-- Mitigation: Package lock, dependabot, regular audits
+- Mitigation: Package lock, Renovate, regular audits
 - Same risk as any JavaScript dependency
 
 **Browser Extensions**:
