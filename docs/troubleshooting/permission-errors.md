@@ -202,11 +202,11 @@ Missing service access permission.
 
 ```bash
 # Check service access
-kubectl auth can-i get services -n headlamp
-kubectl auth can-i get services/sealed-secrets-controller -n headlamp
+kubectl auth can-i get services -n kube-system
+kubectl auth can-i get services/sealed-secrets-controller -n kube-system
 
 # Check proxy access
-kubectl auth can-i get services/proxy -n headlamp
+kubectl auth can-i get services/proxy -n kube-system
 ```
 
 #### Solution
@@ -563,7 +563,7 @@ TOKEN=$(kubectl create token sealed-secrets-ci -n ci-cd)
 
 # Use with kubeseal
 echo -n mysecret | kubeseal \
-  --controller-namespace=headlamp \
+  --controller-namespace=kube-system \
   --token="$TOKEN" \
   --format=yaml
 ```

@@ -65,7 +65,7 @@ brew upgrade headlamp
 
 **Full Error**:
 ```
-Failed to fetch certificate: Service 'sealed-secrets-controller' not found in namespace 'headlamp'
+Failed to fetch certificate: Service 'sealed-secrets-controller' not found in namespace 'kube-system'
 ```
 
 **Cause**: Sealed Secrets controller not installed
@@ -76,10 +76,10 @@ Failed to fetch certificate: Service 'sealed-secrets-controller' not found in na
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Wait for controller to be ready
-kubectl wait --for=condition=ready pod -n headlamp -l name=sealed-secrets-controller --timeout=60s
+kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-controller --timeout=60s
 
 # Verify
-kubectl get pods -n headlamp -l name=sealed-secrets-controller
+kubectl get pods -n kube-system -l name=sealed-secrets-controller
 ```
 
 ---
@@ -96,13 +96,13 @@ Health check failed: Connection timeout after 3 attempts
 **Diagnosis**:
 ```bash
 # 1. Check controller is running
-kubectl get pods -n headlamp -l name=sealed-secrets-controller
+kubectl get pods -n kube-system -l name=sealed-secrets-controller
 
 # 2. Check logs
-kubectl logs -n headlamp -l name=sealed-secrets-controller --tail=50
+kubectl logs -n kube-system -l name=sealed-secrets-controller --tail=50
 
 # 3. Test direct connection
-kubectl port-forward -n headlamp service/sealed-secrets-controller 8080:8080
+kubectl port-forward -n kube-system service/sealed-secrets-controller 8080:8080
 # In another terminal:
 curl http://localhost:8080/v1/cert.pem
 ```
@@ -111,14 +111,14 @@ curl http://localhost:8080/v1/cert.pem
 
 **If pod is not running**:
 ```bash
-kubectl describe pod -n headlamp -l name=sealed-secrets-controller
+kubectl describe pod -n kube-system -l name=sealed-secrets-controller
 ```
 Look for image pull errors, resource constraints, or CrashLoopBackOff.
 
 **If pod is running but not responding**:
 ```bash
 # Restart the controller
-kubectl rollout restart deployment -n headlamp sealed-secrets-controller
+kubectl rollout restart deployment -n kube-system sealed-secrets-controller
 ```
 
 ---
@@ -138,12 +138,12 @@ Warning: Controller version v0.18.0 detected. Plugin tested with v0.24.0+
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Verify upgrade
-kubectl get deployment -n headlamp sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
+kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'
 ```
 
 **Warning**: Backup sealing keys before upgrading:
 ```bash
-kubectl get secret -n headlamp sealed-secrets-key -o yaml > sealed-secrets-key-backup.yaml
+kubectl get secret -n kube-system sealed-secrets-key -o yaml > sealed-secrets-key-backup.yaml
 ```
 
 ---
@@ -162,14 +162,14 @@ Encryption failed: Invalid public key format
 **Diagnosis**:
 ```bash
 # Fetch and validate certificate
-kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d > cert.pem
+kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d > cert.pem
 openssl x509 -in cert.pem -noout -text
 ```
 
 **Solution**:
 If certificate is invalid, the controller may be corrupted. Restart it:
 ```bash
-kubectl rollout restart deployment -n headlamp sealed-secrets-controller
+kubectl rollout restart deployment -n kube-system sealed-secrets-controller
 ```
 
 ---
@@ -188,7 +188,7 @@ Encryption failed: Certificate expired on 2025-01-15
 **Option 1: Use existing valid certificate** (if you have multiple keys):
 ```bash
 # List all certificates
-kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
+kubectl get secrets -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key
 
 # Plugin will automatically use the newest valid certificate
 ```
@@ -196,11 +196,11 @@ kubectl get secrets -n headlamp -l sealedsecrets.bitnami.com/sealed-secrets-key
 **Option 2: Rotate sealing keys**:
 ```bash
 # Generate new key (requires cluster-admin)
-kubectl delete secret -n headlamp sealed-secrets-key
-kubectl rollout restart deployment -n headlamp sealed-secrets-controller
+kubectl delete secret -n kube-system sealed-secrets-key
+kubectl rollout restart deployment -n kube-system sealed-secrets-controller
 
 # Wait for new key generation
-kubectl wait --for=condition=ready pod -n headlamp -l name=sealed-secrets-controller --timeout=60s
+kubectl wait --for=condition=ready pod -n kube-system -l name=sealed-secrets-controller --timeout=60s
 ```
 
 **Warning**: After key rotation, existing SealedSecrets remain valid but cannot be modified. See [Secret Rotation Tutorial](../tutorials/secret-rotation.md).
@@ -493,10 +493,10 @@ Failed to fetch certificate: Connection timeout after 30000ms
 kubectl cluster-info
 
 # Test service connectivity
-kubectl get svc -n headlamp sealed-secrets-controller
+kubectl get svc -n kube-system sealed-secrets-controller
 
 # Port-forward and test manually
-kubectl port-forward -n headlamp service/sealed-secrets-controller 8080:8080
+kubectl port-forward -n kube-system service/sealed-secrets-controller 8080:8080
 curl http://localhost:8080/v1/cert.pem
 ```
 
@@ -534,7 +534,7 @@ If your error isn't listed:
 
 2. **Check Controller Logs**:
    ```bash
-   kubectl logs -n headlamp -l name=sealed-secrets-controller --tail=100
+   kubectl logs -n kube-system -l name=sealed-secrets-controller --tail=100
    ```
 
 3. **Enable Debug Logging** (browser console):

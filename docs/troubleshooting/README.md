@@ -38,10 +38,10 @@ headlamp --version  # Should be v0.13.0+
 **Quick Checks**:
 ```bash
 # Check controller is running
-kubectl get pods -n headlamp -l name=sealed-secrets-controller
+kubectl get pods -n kube-system -l name=sealed-secrets-controller
 
 # Check service exists
-kubectl get svc -n headlamp sealed-secrets-controller
+kubectl get svc -n kube-system sealed-secrets-controller
 ```
 
 **Solution**: See [Controller Issues](controller-issues.md)
@@ -71,7 +71,7 @@ kubectl auth can-i get secrets
 **Quick Checks**:
 ```bash
 # Check certificate is valid
-kubectl get secret -n headlamp sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -dates
+kubectl get secret -n kube-system sealed-secrets-key -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -dates
 ```
 
 **Solution**: See [Encryption Failures](encryption-failures.md)
@@ -89,7 +89,7 @@ If you can't find a solution:
    tail -f ~/Library/Logs/Headlamp/main.log
 
    # Controller logs
-   kubectl logs -n headlamp -l name=sealed-secrets-controller
+   kubectl logs -n kube-system -l name=sealed-secrets-controller
    ```
 
 2. **Enable browser console**:
@@ -111,7 +111,7 @@ When reporting an issue, include:
 - **Plugin version**: Check Settings page or `package.json`
 - **Headlamp version**: `headlamp --version`
 - **Kubernetes version**: `kubectl version --short`
-- **Controller version**: `kubectl get deployment -n headlamp sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'`
+- **Controller version**: `kubectl get deployment -n kube-system sealed-secrets-controller -o jsonpath='{.spec.template.spec.containers[0].image}'`
 - **Error messages**: Full error text from UI or console
 - **Browser console logs**: Copy from Developer Tools
 - **Steps to reproduce**: What you did before the error

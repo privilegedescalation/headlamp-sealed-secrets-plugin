@@ -162,7 +162,7 @@ For CI/CD or offline encryption:
 
 **Check controller status**:
 ```bash
-kubectl get pods -n headlamp -l name=sealed-secrets-controller
+kubectl get pods -n kube-system -l name=sealed-secrets-controller
 ```
 
 **If not running**, install it:
@@ -197,7 +197,7 @@ rules:
 
 2. **Verify controller connectivity**:
    ```bash
-   kubectl get svc -n headlamp sealed-secrets-controller
+   kubectl get svc -n kube-system sealed-secrets-controller
    ```
 
 3. **Check browser console**:

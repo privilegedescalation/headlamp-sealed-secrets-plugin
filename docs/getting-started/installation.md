@@ -121,7 +121,7 @@ For Headlamp running in Kubernetes:
    kubectl create configmap headlamp-sealed-secrets-plugin \
      --from-file=main.js=dist/main.js \
      --from-file=package.json=package.json \
-     -n headlamp
+     -n kube-system
    ```
 
 2. **Update Headlamp deployment**:
@@ -149,7 +149,7 @@ For Headlamp running in Kubernetes:
 3. **Apply and restart**:
    ```bash
    kubectl apply -f headlamp-deployment.yaml
-   kubectl rollout restart deployment/headlamp -n headlamp
+   kubectl rollout restart deployment/headlamp -n kube-system
    ```
 
 ## Verification
@@ -208,13 +208,13 @@ headlamp --version  # Should be >= v0.13.0
 
 **Verify controller is running**:
 ```bash
-kubectl get pods -n headlamp -l name=sealed-secrets-controller
+kubectl get pods -n kube-system -l name=sealed-secrets-controller
 # Should show: Running pod
 ```
 
 **Check controller service**:
 ```bash
-kubectl get svc -n headlamp sealed-secrets-controller
+kubectl get svc -n kube-system sealed-secrets-controller
 # Should exist with ClusterIP
 ```
 
@@ -231,7 +231,7 @@ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/downloa
 kubectl get sealedsecrets --all-namespaces
 
 # Can you get the service?
-kubectl get svc -n headlamp sealed-secrets-controller
+kubectl get svc -n kube-system sealed-secrets-controller
 ```
 
 **Verify CRD exists**:

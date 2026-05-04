@@ -214,8 +214,8 @@ npm run package
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.0/controller.yaml
 
 # Verify installation
-kubectl get deployment -n headlamp sealed-secrets-controller
-kubectl get svc -n headlamp sealed-secrets-controller
+kubectl get deployment -n kube-system sealed-secrets-controller
+kubectl get svc -n kube-system sealed-secrets-controller
 ```
 
 **Test Scenarios:**

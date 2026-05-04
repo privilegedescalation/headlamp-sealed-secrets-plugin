@@ -33,7 +33,7 @@ The sealing certificate is the public key used to encrypt secrets. You can downl
 Alternatively, fetch it directly from the controller:
 
 ```bash
-kubectl get secret -n headlamp \
+kubectl get secret -n kube-system \
   -l sealedsecrets.bitnami.com/sealed-secrets-key=active \
   -o jsonpath='{.items[0].data.tls\.crt}' | base64 -d > sealed-secrets-cert.pem
 ```
@@ -41,7 +41,7 @@ kubectl get secret -n headlamp \
 Or use the controller's certificate endpoint:
 
 ```bash
-curl http://sealed-secrets-controller.headlamp:8080/v1/cert.pem > sealed-secrets-cert.pem
+curl http://sealed-secrets-controller.kube-system:8080/v1/cert.pem > sealed-secrets-cert.pem
 ```
 
 ## Step 2: Install kubeseal CLI
@@ -107,7 +107,7 @@ jobs:
           echo "${{ secrets.SEALED_SECRETS_CERT }}" > sealed-secrets-cert.pem
 
           # Option 2: From cluster (requires kubectl access)
-          # kubectl get secret -n headlamp \
+          # kubectl get secret -n kube-system \
           #   -l sealedsecrets.bitnami.com/sealed-secrets-key=active \
           #   -o jsonpath='{.items[0].data.tls\.crt}' | base64 -d > sealed-secrets-cert.pem
 
