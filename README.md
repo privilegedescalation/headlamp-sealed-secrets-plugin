@@ -151,7 +151,7 @@ Plaintext values never leave your browser.
 | Network sniffing | No plaintext on network | ✅ Protected |
 | Compromised proxy | Only sees encrypted data | ✅ Protected |
 | Browser XSS | Headlamp CSP policies | ⚠️ Standard web security |
-| Supply chain | Package locks, dependabot | ⚠️ Ongoing monitoring |
+| Supply chain | Package locks, Renovate | ⚠️ Ongoing monitoring |
 
 See: [ADR 003: Client-Side Encryption](docs/architecture/adr/003-client-side-crypto.md)
 
