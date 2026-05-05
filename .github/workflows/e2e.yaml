@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  E2E_NAMESPACE: privilegedescalation-dev
+  E2E_NAMESPACE: headlamp-dev
   E2E_RELEASE: headlamp-e2e
   HEADLAMP_VERSION: v0.40.1
 
