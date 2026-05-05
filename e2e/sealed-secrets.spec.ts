@@ -65,11 +65,11 @@ test.describe('Sealed Secrets plugin smoke tests', () => {
     await page.goto('/c/main/sealedsecrets');
     const sidebar = await waitForSidebar(page);
 
-    const sealedBtn = sidebar.getByRole('button', { name: /sealed.secrets/i });
+    const sealedBtn = sidebar.getByRole('button', { name: /sealed.secrets/i }).first();
     await sealedBtn.click();
     await page.waitForLoadState('networkidle');
 
-    await expect(page.getByRole('heading', { name: /sealed.secrets/i })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('heading', { name: /sealed.secrets/i }).first()).toBeVisible({ timeout: 15_000 });
 
     const keysLink = sidebar.getByRole('link', { name: /sealing.key/i });
     await expect(keysLink).toBeVisible();
@@ -77,7 +77,7 @@ test.describe('Sealed Secrets plugin smoke tests', () => {
 
     await page.waitForLoadState('networkidle');
     await expect(page).toHaveURL(/\/sealedsecrets\/keys$/);
-    await expect(page.getByRole('heading', { name: /sealing.key/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /sealing.key/i }).first()).toBeVisible();
 
     const allSecretsLink = sidebar.getByRole('link', { name: /all sealed secrets/i });
     await expect(allSecretsLink).toBeVisible();
@@ -85,13 +85,13 @@ test.describe('Sealed Secrets plugin smoke tests', () => {
 
     await page.waitForLoadState('networkidle');
     await expect(page).toHaveURL(/\/sealedsecrets(?!\/keys)/);
-    await expect(page.getByRole('heading', { name: /sealed.secrets/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /sealed.secrets/i }).first()).toBeVisible();
   });
 
   test('plugin settings page shows sealed-secrets plugin entry', async ({ page }) => {
     await page.goto('/settings/plugins');
     await page.waitForLoadState('networkidle');
-    await page.waitForSelector('[class*="PluginList"], [class*="plugins"], table, list', { timeout: 10_000 }).catch(() => {});
+    await page.waitForSelector('table', { timeout: 10_000 }).catch(() => {});
 
     const pluginEntry = page.locator('text=/sealed.secrets/i').first();
     await expect(pluginEntry).toBeVisible({ timeout: 30_000 });
