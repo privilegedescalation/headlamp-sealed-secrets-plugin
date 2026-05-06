@@ -3,7 +3,7 @@
 #
 # Tears down the dedicated E2E Headlamp instance deployed by deploy-e2e-headlamp.sh.
 #
-# RBAC is managed via Flux from privilegedescalation/infra/base/rbac/e2e-ci-runner-headlamp-rbac.yaml.
+# RBAC is managed via Flux from privilegedescalation/infra/base/rbac/e2e-ci-runner.yaml.
 # The infra repo is the source of truth — do not apply this file directly.
 #
 # Environment:
