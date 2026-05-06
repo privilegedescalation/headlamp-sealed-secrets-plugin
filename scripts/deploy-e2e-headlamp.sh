@@ -97,7 +97,7 @@ spec:
         app.kubernetes.io/instance: ${E2E_RELEASE}
     spec:
       serviceAccountName: ${E2E_RELEASE}
-      automountServiceAccountToken: true
+      automountServiceAccountToken: false
       securityContext: {}
       containers:
         - name: headlamp
@@ -159,6 +159,7 @@ spec:
 EOF
 
 echo "Waiting for rollout..."
+sleep 2
 kubectl rollout status "deployment/${E2E_RELEASE}" \
   -n "$E2E_NAMESPACE" --timeout=120s
 
