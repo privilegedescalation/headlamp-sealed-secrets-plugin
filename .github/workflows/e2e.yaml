@@ -20,5 +20,3 @@ jobs:
     with:
       node-version: "22"
       headlamp-version: v0.40.1
-      e2e-namespace: headlamp-dev
-      plugin-name: sealed-secrets
