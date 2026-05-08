@@ -5,7 +5,7 @@
 # a ConfigMap volume mount. No custom Docker images — the plugin is built
 # in CI and injected as a ConfigMap.
 #
-# E2E resources are deployed to the `privilegedescalation-dev` namespace. Nothing
+# E2E resources are deployed to the `headlamp-dev` namespace. Nothing
 # persists beyond the test run — teardown cleans up all created resources.
 #
 # Prerequisites:
@@ -16,7 +16,7 @@
 # Apply RBAC first: kubectl apply -f privilegedescalation/infra/base/rbac/e2e-ci-runner-headlamp-rbac.yaml
 #
 # Environment:
-#   E2E_NAMESPACE     — namespace for E2E Headlamp (default: privilegedescalation-dev)
+#   E2E_NAMESPACE     — namespace for E2E Headlamp (default: headlamp-dev)
 #   E2E_RELEASE       — release/resource name prefix (default: headlamp-e2e)
 #   HEADLAMP_VERSION  — Headlamp image tag (default: latest)
 set -euo pipefail
@@ -24,7 +24,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST_DIR="$REPO_ROOT/dist"
 
-E2E_NAMESPACE="${E2E_NAMESPACE:-privilegedescalation-dev}"
+E2E_NAMESPACE="${E2E_NAMESPACE:-headlamp-dev}"
 E2E_RELEASE="${E2E_RELEASE:-headlamp-e2e}"
 HEADLAMP_VERSION="${HEADLAMP_VERSION:-latest}"
 
