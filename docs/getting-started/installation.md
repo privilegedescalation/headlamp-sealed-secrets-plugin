@@ -121,7 +121,7 @@ For Headlamp running in Kubernetes:
    kubectl create configmap headlamp-sealed-secrets-plugin \
      --from-file=main.js=dist/main.js \
      --from-file=package.json=package.json \
-     -n headlamp
+     -n <your-namespace>
    ```
 
 2. **Update Headlamp deployment**:
@@ -130,7 +130,7 @@ For Headlamp running in Kubernetes:
    kind: Deployment
    metadata:
      name: headlamp
-     namespace: headlamp
+     namespace: <your-namespace>
    spec:
      template:
        spec:
@@ -149,7 +149,7 @@ For Headlamp running in Kubernetes:
 3. **Apply and restart**:
    ```bash
    kubectl apply -f headlamp-deployment.yaml
-   kubectl rollout restart deployment/headlamp -n headlamp
+   kubectl rollout restart deployment/headlamp -n <your-namespace>
    ```
 
 ## Verification
