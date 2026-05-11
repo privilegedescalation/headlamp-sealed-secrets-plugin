@@ -5,18 +5,17 @@
 # a ConfigMap volume mount. No custom Docker images — the plugin is built
 # in CI and injected as a ConfigMap.
 #
-# E2E resources are deployed to the `privilegedescalation-dev` namespace. Nothing
+# E2E resources are deployed to the `headlamp-dev` namespace. Nothing
 # persists beyond the test run — teardown cleans up all created resources.
 #
 # Prerequisites:
 #   - Plugin built (dist/ exists with plugin-main.js + package.json)
 #   - kubectl configured with cluster access
-# RBAC is managed via Flux from privilegedescalation/infra/base/rbac/e2e-ci-runner-headlamp-rbac.yaml.
+# RBAC is managed via Flux from privilegedescalation/infra/apps/base/e2e-ci-runner-rbac.yaml.
 # The infra repo is the source of truth — do not apply this file directly.
-# Apply RBAC first: kubectl apply -f privilegedescalation/infra/base/rbac/e2e-ci-runner-headlamp-rbac.yaml
 #
 # Environment:
-#   E2E_NAMESPACE     — namespace for E2E Headlamp (default: privilegedescalation-dev)
+#   E2E_NAMESPACE     — namespace for E2E Headlamp (default: headlamp-dev)
 #   E2E_RELEASE       — release/resource name prefix (default: headlamp-e2e)
 #   HEADLAMP_VERSION  — Headlamp image tag (default: latest)
 set -euo pipefail
@@ -24,7 +23,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST_DIR="$REPO_ROOT/dist"
 
-E2E_NAMESPACE="${E2E_NAMESPACE:-privilegedescalation-dev}"
+E2E_NAMESPACE="${E2E_NAMESPACE:-headlamp-dev}"
 E2E_RELEASE="${E2E_RELEASE:-headlamp-e2e}"
 HEADLAMP_VERSION="${HEADLAMP_VERSION:-latest}"
 
@@ -37,7 +36,7 @@ fi
 echo "Checking RBAC permissions in namespace '${E2E_NAMESPACE}'..."
 if ! kubectl auth can-i delete configmaps -n "$E2E_NAMESPACE" --quiet 2>/dev/null; then
   echo "ERROR: Missing RBAC — cannot delete configmaps in namespace '${E2E_NAMESPACE}'." >&2
-  echo "  Apply RBAC first: kubectl apply -f privilegedescalation/infra/base/rbac/e2e-ci-runner-headlamp-rbac.yaml" >&2
+  echo "  RBAC is managed via Flux from privilegedescalation/infra/apps/base/e2e-ci-runner-rbac.yaml" >&2
   exit 1
 fi
 
