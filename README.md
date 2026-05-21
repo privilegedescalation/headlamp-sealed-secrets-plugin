@@ -44,6 +44,8 @@ kubectl get sealedsecret -A
 kubectl get secret <your-secret-name> -n <namespace>
 ```
 
+> See [Plugin Installation Policy](https://git.farh.net/privilegedescalation/org/wiki/Plugin-Installation-Policy) for approved installation methods.
+
 
 ## Documentation
 
